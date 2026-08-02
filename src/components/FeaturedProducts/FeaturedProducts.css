@@ -1,0 +1,12 @@
+.featured-products{
+    padding: 60px 20px;
+    align-items: center;
+}
+.Product-grid{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
