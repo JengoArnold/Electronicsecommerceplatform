@@ -4,7 +4,7 @@ import "./Navbar.css"
 function Navbar() {
   return (
     <div className='navbar'>
-      <h2 className='logo'>Jengo Tech Store</h2>
+      <h2 className='logo'>ArN</h2>
      
       <ui className="nav-links">
     <li>Home</li>
