@@ -8,7 +8,7 @@ import iphones from "../../assets/images/iphones.jpg";
 
 import React from 'react'
 
-function FeaturedProducts() {
+function FeaturedProducts({addToCart}) {
     const Products=[
         { 
         id:1,
@@ -56,6 +56,7 @@ Products.map((item)=>(
     price={item.price}
     rating={item.rating}
     Image={item.Image}
+    addToCart={addToCart}
     />
 
 ))

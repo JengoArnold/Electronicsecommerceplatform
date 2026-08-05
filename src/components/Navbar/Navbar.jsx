@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Navbar.css"
 
-function Navbar() {
+function Navbar( {cartCount}) {
   return (
     <div className='navbar'>
       <h2 className='logo'>ArN</h2>
@@ -9,7 +9,7 @@ function Navbar() {
       <ui className="nav-links">
     <li>Home</li>
      <li>Shop</li>
-      <li>Cart</li>
+      <li>Cart( {cartCount})</li>
        <li>Login</li>
        <li>Contact</li>
        <li>Sign-Up</li>
