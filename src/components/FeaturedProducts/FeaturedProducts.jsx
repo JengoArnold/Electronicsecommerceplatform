@@ -57,6 +57,7 @@ Products.map((item)=>(
     rating={item.rating}
     Image={item.Image}
     addToCart={addToCart}
+    product={item}
     />
 
 ))
