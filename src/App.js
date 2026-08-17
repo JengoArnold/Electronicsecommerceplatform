@@ -13,6 +13,7 @@ function App() {
 
     const [cartCount, setCartcount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
+    const[selectedProduct,setSelectectedProduct]=useState(null);
 
 
     function addToCart(product) {
@@ -22,9 +23,7 @@ function App() {
         );
 
         if (existingProduct) {
-
             console.log("Product already exists");
-
         } else {
 
             setCartItems([
@@ -40,6 +39,13 @@ function App() {
     }
 
 
+function selectProduct(product){
+    setSelectectedProduct(product)
+};
+
+
+
+
     // REMOVE PRODUCT
     function removeFromCart(productId) {
 
@@ -50,26 +56,18 @@ function App() {
         setCartItems(updatedCart);
     }
 
-
     // INCREASE QUANTITY
     function increaseQuantity(productId) {
-
         const updatedCart = cartItems.map((item) => {
-
             if (item.id === productId) {
-
                 return {
                     ...item,
                     quantity: item.quantity + 1
                 };
-
             } else {
-
                 return item;
             }
-
         });
-
         setCartItems(updatedCart);
     }
 
@@ -108,6 +106,7 @@ function App() {
 
             <FeaturedProducts
                 addToCart={addToCart}
+                selectProduct={selectProduct}
             />
 
             <Categories />
@@ -118,10 +117,7 @@ function App() {
                 increaseQuantity={increaseQuantity}
                 decreaseQuantity={decreaseQuantity}
             />
-<ProductDetails
 
-
-/>
         </div>
     );
 }
