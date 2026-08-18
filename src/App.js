@@ -13,7 +13,7 @@ function App() {
 
     const [cartCount, setCartcount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
-    const[selectedProduct,setSelectectedProduct]=useState(null);
+    const[selectedProduct, setSelectedProduct]= useState(null);
 
 
     function addToCart(product) {
@@ -40,7 +40,7 @@ function App() {
 
 
 function selectProduct(product){
-    setSelectectedProduct(product)
+    setSelectedProduct(product)
 };
 
 
@@ -108,6 +108,14 @@ function selectProduct(product){
                 addToCart={addToCart}
                 selectProduct={selectProduct}
             />
+
+            {/* Telling App.jsx to display the ProductDetails component */}
+            {selectedProduct && (
+    <ProductDetails
+        product={selectedProduct}
+        addToCart={addToCart}
+    />
+)}
 
             <Categories />
 
