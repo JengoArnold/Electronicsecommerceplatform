@@ -42,6 +42,9 @@ function App() {
 function selectProduct(product){
     setSelectedProduct(product)
 };
+const closeDetails =()=>{
+    setSelectedProduct(null);
+};
 
 
 
@@ -114,6 +117,7 @@ function selectProduct(product){
     <ProductDetails
         product={selectedProduct}
         addToCart={addToCart}
+        closeDetails={closeDetails}
     />
 )}
 
