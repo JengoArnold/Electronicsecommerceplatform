@@ -4,9 +4,9 @@ import React from "react";
 function Cart({cartItems,removeFromCart,   increaseQuantity,
     decreaseQuantity  }) {
 
-  const total =cartItems.reduce((sum,item)=>{
-return sum +(item.price *item.quantity);
-  },0);
+ const total = cartItems.reduce((sum, item) => {
+  return sum + (item.price * item.quantity);
+}, 0);
 
   return (
     <div>
@@ -30,14 +30,14 @@ return sum +(item.price *item.quantity);
         -
     </button>
 
-    <span>Quantity: {item.quantity}</span>
+    <span>{item.quantity}</span>
 
     <button onClick={() => increaseQuantity(item.id)}>
         +
     </button>
 
 </div>
-<div className="cart-total">
+<div className="cart-remove">
 
 <button onClick={()=>removeFromCart(item.id)}  className="remove-button">Remove</button>
 </div>
