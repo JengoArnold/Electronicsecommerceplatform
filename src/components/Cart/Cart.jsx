@@ -2,7 +2,7 @@ import "./Cart.css";
 import React from "react";
 
 function Cart({cartItems,removeFromCart,   increaseQuantity,
-    decreaseQuantity            }) {
+    decreaseQuantity  }) {
 
   const total =cartItems.reduce((sum,item)=>{
 return sum +(item.price *item.quantity);
@@ -15,7 +15,13 @@ return sum +(item.price *item.quantity);
 
 {
     cartItems.map((item)=>(
+      
 <div key={item.id} className="cart-item">
+  <img
+  src={item.Image}
+  alt={item.name}
+  className="cart-item-image"
+/>
 <h3>{item.name}</h3>
 <p>${item.price}</p>
 <div className="quantity-controls">
