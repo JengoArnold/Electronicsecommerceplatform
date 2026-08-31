@@ -61,3 +61,18 @@
 font-size: bold;
 
 }
+.Empty-cart{
+   align-items: center;
+  padding:60px 20px;
+
+  border: 1px solid rgb(153, 153, 153);
+  border-radius: 10px;
+margin: 30px auto;
+}
+.Empty-cart h2{
+   font-size: 28px; 
+   margin-bottom: 15px;
+}
+.Empty-cart p{
+font-size: 19px;
+}

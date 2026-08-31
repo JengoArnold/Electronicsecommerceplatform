@@ -13,14 +13,25 @@ function Cart({cartItems,removeFromCart,   increaseQuantity,
       <h2>Shopping Cart</h2>
  <section className="cart">
 
-{
+
+
+{cartItems.length === 0?(
+
+  <div className="Empty-cart">
+<h2>🛒 Your Cart is Empty</h2>
+<p>Add more products to your cart to get started </p>
+  </div>
+):(
+
+
+
     cartItems.map((item)=>(
       
 <div key={item.id} className="cart-item">
   <img
   src={item.Image}
   alt={item.name}
-  className="cart-item-image"
+  className= "cart-item-image"
 />
 <h3>{item.name}</h3>
 <p>${item.price}</p>
@@ -44,13 +55,21 @@ function Cart({cartItems,removeFromCart,   increaseQuantity,
 
 </div>
     ))
-}
-<div className="total-cart">
-  <p>Total:${total}</p>
-</div>
-      </section>
+)}
+
+
+ {cartItems.length > 0 && (
+    <div className="total-cart">
+      <p>Total: ${total}</p>
     </div>
-  )
+  )}
+
+</section>
+
+  </div>
+  );
 }
 
-export default Cart
+export default Cart;
+
+
