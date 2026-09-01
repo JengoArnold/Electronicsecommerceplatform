@@ -76,3 +76,25 @@ margin: 30px auto;
 .Empty-cart p{
 font-size: 19px;
 }
+@media(max-width:768px){
+    .cart{width:95%}
+    .cart-item{
+       flex-direction: column; 
+       align-items: center;
+       gap:15px
+    }
+    .cart-item-image{
+        width: 180px;
+        height: 150px;      
+    }
+    .quantity-controls{
+        justify-content: center;
+    }
+    .total-cart{
+        align-items: center;
+         width: 100%;
+font-size: 28px;
+  font-weight: bold;
+    }
+    
+}

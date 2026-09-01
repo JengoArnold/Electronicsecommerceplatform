@@ -60,7 +60,7 @@ function Cart({cartItems,removeFromCart,   increaseQuantity,
 
  {cartItems.length > 0 && (
     <div className="total-cart">
-      <p>Total: ${total}</p>
+      <p >Total: ${total}</p>
     </div>
   )}
 
