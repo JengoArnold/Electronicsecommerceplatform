@@ -123,3 +123,38 @@ text-align: center;
     grid-column: auto;
   }
 }
+
+/* very small screens */
+
+@media (max-width: 480px) { 
+
+  .product-details {
+    width: 85%;
+    padding: 15px;
+    margin: 20px auto;
+    gap: 20px;
+  }
+
+  .product-details-image img {
+    height: 220px;
+  }
+
+  .product-details-info h2 {
+    font-size: 24px;
+  }
+
+  .product-details-price {
+    font-size: 21px;
+  }
+
+  .product-details-description {
+    font-size: 15px;
+  }
+
+  .product-details-button,
+  .back-button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+}
