@@ -20,7 +20,6 @@ function ProductDetails({ product, addToCart, closeDetails }) {
       <div className="product-details-info">
 
         <h2>{product.name}</h2>
-
         <p className="product-details-price">
           ${product.price}
         </p>

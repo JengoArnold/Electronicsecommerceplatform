@@ -76,6 +76,7 @@ margin: 30px auto;
 .Empty-cart p{
 font-size: 19px;
 }
+
 @media(max-width:768px){
     .cart{width:95%}
     .cart-item{

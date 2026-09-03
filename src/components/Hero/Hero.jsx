@@ -15,8 +15,6 @@ function Hero() {
 
      <button>View products</button>
  <button>Explore Deals</button>
-
- 
   </div>
 
 <div className='hero-image'>
