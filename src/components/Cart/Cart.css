@@ -99,3 +99,15 @@ font-size: 28px;
     }
     
 }
+@media(max-width:780px){
+    .Empty-cart{
+        width:90%;
+        padding: 30px 10px;
+    }
+    .Empty-cart h2{
+      font-size: 20px;  
+    }
+    .Empty-cart p{
+        font-size: 15px;
+    }
+}
