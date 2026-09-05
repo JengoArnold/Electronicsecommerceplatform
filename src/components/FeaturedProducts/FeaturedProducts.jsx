@@ -21,13 +21,6 @@ fetch("http://localhost:5000/Products")
 },[]);
 
 
-
-
-
-
-
-
-
     const Products=[
         { 
         id:1,
