@@ -6,9 +6,28 @@ import gamingPC from "../../assets/images/gamingPC.jpg";
 import iphones from "../../assets/images/iphones.jpg";
 
 
-import React from 'react'
+import React,{useEffect,useState} from 'react';
 
 function FeaturedProducts({addToCart , selectProduct}) {
+const [Product, setProduct] = useState([]);
+
+useEffect(()=>{
+
+fetch("http://localhost:5000/products")
+.then(response=>response.json())
+.then(data=>{
+  setProduct(data);
+});
+},[]);
+
+
+
+
+
+
+
+
+
     const Products=[
         { 
         id:1,
