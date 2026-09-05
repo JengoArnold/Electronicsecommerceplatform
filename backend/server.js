@@ -6,7 +6,7 @@ const app = express();
 // this is like a door through which we access our server
 const PORT =5000;
 
-const products=[{
+const Products=[{
     id:1,
     name :"gaming laptop",
     price: 2000,
@@ -33,8 +33,8 @@ app.get("/",(req,res) =>{
     res.send("Ecommerce backend is running");
 });
 
-app.get("/products",(req,res)=>{
-    res.json(products);
+app.get("/Products",(req,res)=>{
+    res.json(Products);
 });
 
 // Start the server and listen on port 5000.

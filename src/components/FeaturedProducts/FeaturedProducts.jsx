@@ -13,7 +13,7 @@ const [Product, setProduct] = useState([]);
 
 useEffect(()=>{
 
-fetch("http://localhost:5000/products")
+fetch("http://localhost:5000/Products")
 .then(response=>response.json())
 .then(data=>{
   setProduct(data);
@@ -67,6 +67,7 @@ fetch("http://localhost:5000/products")
       <h2>FeaturedProducts </h2>
      <div className="Product-grid">
 {
+
 Products.map((item)=>(
 
     <ProductCard 
