@@ -16,6 +16,7 @@ useEffect(()=>{
 fetch("http://localhost:5000/Products")
 .then(response=>response.json())
 .then(data=>{
+  console.log("DATA RECIEVED:",data);
   setProduct(data);
 });
 },[]);

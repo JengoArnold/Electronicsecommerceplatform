@@ -1,12 +1,9 @@
-
-
-
 // imports backend into our application
 const express = require("express"); 
 
 // import CORS
 
-const cors = require(cors);
+const cors = require("cors");
 // this creates our backend application 
 const app = express(); 
 
