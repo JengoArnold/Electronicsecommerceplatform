@@ -1,7 +1,17 @@
+
+
+
 // imports backend into our application
 const express = require("express"); 
+
+// import CORS
+
+const cors = require(cors);
 // this creates our backend application 
 const app = express(); 
+
+// enable cors
+app.use(cors());
 
 // this is like a door through which we access our server
 const PORT =5000;
