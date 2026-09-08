@@ -11,10 +11,13 @@ function ProductCard({name ,price,rating,product,Image,addToCart,  selectProduct
       <h1>{name}</h1>
       <p>⭐{rating}</p>
       <p>${price}</p>
-      <button onClick={() => addToCart(product)}>Add to Cart</button>
-<button onClick={() => selectProduct(product)}>
+    
+         <button onClick={() => addToCart(product)}>Add to Cart</button>
+<button1 onClick={() => selectProduct(product)}>
     View Details
-</button>
+</button1>  
+  
+     
 
     </div>
   )

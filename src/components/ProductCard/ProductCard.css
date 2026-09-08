@@ -20,18 +20,29 @@
 
 }
 .ProductCard button{
-    padding: 16px 12px;
-    border-radius: 20px;
+    padding: 14px 10px;
+    border-radius: none ;
     color: black;
     background-color: orange;
     font-size: medium;
 cursor: pointer;
 border-style: none;
     font-style: oblique;
+    
 }
 .ProductCard button:hover{
  transform:translateX(-18px);
     box-shadow:0 8px 20px rgba(0,0,0,0.15);
 
 
+}
+.ProductCard button1{
+    padding: 14px 10px;
+    border-radius: none ;
+    color: black;
+    background-color: orange;
+    font-size: medium;
+cursor: pointer;
+border-style: none;
+    font-style: oblique;  
 }
