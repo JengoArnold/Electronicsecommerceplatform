@@ -10,6 +10,7 @@ import React,{useEffect,useState} from 'react';
 
 function FeaturedProducts({addToCart , selectProduct}) {
 const [Product, setProduct] = useState([]);
+const[error,setError]=useState("");
 
 useEffect(()=>{
 
@@ -18,7 +19,13 @@ fetch("http://localhost:5000/Products")
 .then(data=>{
   console.log("DATA RECIEVED:",data);
   setProduct(data);
+})
+
+.catch(error => {
+  console.log("FETCH ERROR:",error);
+  setError("unable to fetch data");
 });
+
 },[]);
 
 
