@@ -21,6 +21,8 @@ fetch("http://localhost:5000/Products")
   console.log("DATA RECIEVED:",data);
   setProduct(data);
   setLoading(false);
+
+ 
 })
 
 .catch(error => {
