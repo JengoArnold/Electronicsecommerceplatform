@@ -1,7 +1,7 @@
 // imports backend into our application
 const express = require("express"); 
 
-// import CORS
+// import CORS[allows backend to communicste with fromtend ]
 
 const cors = require("cors");
 // this creates our backend application 
