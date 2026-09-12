@@ -9,6 +9,9 @@ const app = express();
 
 // enable cors
 app.use(cors());
+//enablejson requests--wehen react sends a product express needs to understand it
+app.use(express,json());
+
 
 // this is like a door through which we access our server
 const PORT =5000;
