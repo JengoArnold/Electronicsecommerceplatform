@@ -18,9 +18,10 @@ const Products=[{
     name :"gaming laptop",
     price: 2000,
     rating: 4.5,
+
 },
 {id:2,
-    name:"Iphone",
+    name:"Iphones",
     price:3000,
     rating: 4.0,
 },
