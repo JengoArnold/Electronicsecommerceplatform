@@ -10,7 +10,7 @@ const app = express();
 // enable cors
 app.use(cors());
 //enablejson requests--wehen react sends a product express needs to understand it
-app.use(express,json());
+app.use(express.json());
 
 
 // this is like a door through which we access our server
@@ -50,6 +50,14 @@ app.get("/",(req,res) =>{
 
 app.get("/Products",(req,res)=>{
     res.json(Products);
+});
+
+app.post("/Products",(req,res)=>{
+    //stores the product that was sent to us in newProduct
+const newProduct = req.body;
+//. push --adds something at the end of the array
+Products.push(newProduct)
+res.json(newProduct);
 });
 
 // Start the server and listen on port 5000.
