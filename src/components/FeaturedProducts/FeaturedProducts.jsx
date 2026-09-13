@@ -74,6 +74,7 @@ body: JSON.stringify({
 .then(response=> response.json())
 .then(data =>{
   console.log("PRODUCT CREATED:", data);
+  
 })
 .catch(error =>{
   console.log("ERROR:",error);
