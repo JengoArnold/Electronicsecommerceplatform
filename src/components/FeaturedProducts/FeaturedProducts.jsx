@@ -74,7 +74,7 @@ body: JSON.stringify({
 .then(response=> response.json())
 .then(data =>{
   console.log("PRODUCT CREATED:", data);
-  
+  setProduct(prevProducts =>[...prevProducts,data]);
 })
 .catch(error =>{
   console.log("ERROR:",error);
