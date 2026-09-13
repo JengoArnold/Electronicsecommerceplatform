@@ -52,14 +52,41 @@ fetch("http://localhost:5000/Products")
 },[]);
 
 
-   
+   //ForThe Add test button 
+
+   function addTestProduct(){
+fetch("http://localhost:5000/Products",{
+method: "POST",
+
+headers: {
+"Content-Type":"application/json"
+},
+//converts JSON text that can be sent in the HTTP request
+body: JSON.stringify({
+  id:5,
+  name:"SamSung TV",
+  price:1500,
+  rating:4.5
+})
+
+})
+
+.then(response=> response.json())
+.then(data =>{
+  console.log("PRODUCT CREATED:", data);
+})
+.catch(error =>{
+  console.log("ERROR:",error);
+});
+
+   };
 
 
   return (
     <div className="Featured-Products">
       <h2>FeaturedProducts </h2>
 
-<button onClick={AddTestProduct}>Add Test Product</button>
+<button onClick={addTestProduct}>Add Test Product</button>
 
 
 
