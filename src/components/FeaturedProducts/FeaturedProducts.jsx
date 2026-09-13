@@ -58,6 +58,11 @@ fetch("http://localhost:5000/Products")
   return (
     <div className="Featured-Products">
       <h2>FeaturedProducts </h2>
+
+<button onClick={AddTestProduct}>Add Test Product</button>
+
+
+
       {loading && <p>⏳ loading.......</p>}
       {error && <p>{error}</p>}
      <div className="Product-grid">
