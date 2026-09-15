@@ -13,9 +13,9 @@ function ProductCard({name ,price,rating,product,Image,addToCart,  selectProduct
       <p>${price}</p>
     
          <button onClick={() => addToCart(product)}>Add to Cart</button>
-<button1 onClick={() => selectProduct(product)}>
+<button onClick={() => selectProduct(product)}>
     View Details
-</button1>  
+</button>  
   
      
 

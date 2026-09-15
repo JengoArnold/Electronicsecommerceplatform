@@ -26,6 +26,8 @@ const[error,setError]=useState("");
 //Tracks if the products are still loading 
 const[loading,setLoading]=useState(true);
 
+const[createError,setCreateError] = useState("");
+
 useEffect(()=>{
 
 fetch("http://localhost:5000/Products")
@@ -82,14 +84,9 @@ body: JSON.stringify({
 })
 .catch(error =>{
   console.log("ERROR:",error);
+  setCreateError(error.message);
 });
 };
-
-
-
-
-
-
 
 
 
@@ -100,7 +97,7 @@ body: JSON.stringify({
 <button onClick={addTestProduct}>Add Test Product</button>
 
 
-
+{createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
       {error && <p>{error}</p>}
      <div className="Product-grid">
