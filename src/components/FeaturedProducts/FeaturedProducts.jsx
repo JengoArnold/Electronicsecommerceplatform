@@ -1,8 +1,6 @@
 
-
 import "./FeaturedProducts.css";
 import ProductCard from "../ProductCard/ProductCard";
-
 import desk from "../../assets/images/desk.jpg";
 import fridges from "../../assets/images/fridges.jpg";
 import gamingPC from "../../assets/images/gamingPC.jpg";
@@ -16,9 +14,6 @@ const productImages = {
     3: desk,
     4: fridges
 };
-
-
-
 
 function FeaturedProducts({addToCart , selectProduct}) {
 
@@ -39,8 +34,6 @@ fetch("http://localhost:5000/Products")
   console.log("DATA RECIEVED:",data);
   setProduct(data);
   setLoading(false);
-
- 
 })
 
 .catch(error => {
@@ -50,14 +43,11 @@ fetch("http://localhost:5000/Products")
 });
 
 },[]);
-
-
    //ForThe Add test button 
 
    function addTestProduct(){
 fetch("http://localhost:5000/Products",{
 method: "POST",
-
 headers: {
 "Content-Type":"application/json"
 },
@@ -68,19 +58,39 @@ body: JSON.stringify({
   price:1500,
   rating:4.5
 })
-
 })
+// .then(response=> response.json())
+// .then(data =>{
+//   console.log("PRODUCT CREATED:", data);
+//   setProduct(prevProducts =>[...prevProducts,data]);
+// })
+// .catch(error =>{
+//   console.log("ERROR:",error);
+// });
+//    
 
-.then(response=> response.json())
-.then(data =>{
-  console.log("PRODUCT CREATED:", data);
+.then(response => {
+  if(!response.ok){
+    throw new Error("Product could not be created ");
+  }
+
+  return response.json();
+})
+.then(data => {
+  console.log("PRODUCT CREATED:",data);
   setProduct(prevProducts =>[...prevProducts,data]);
 })
 .catch(error =>{
   console.log("ERROR:",error);
 });
+};
 
-   };
+
+
+
+
+
+
 
 
   return (
