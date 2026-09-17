@@ -77,9 +77,15 @@ const productIndex = Products.findIndex(
     product => product.id === productid
 );
 
+if (productIndex === -1){
+    return res.status(404).json({
+        message:"Product not found "
+    });
+}
 
-
-})
+Products[productIndex] = updatedProduct;
+res.json(updatedProduct);
+});
 
 
 
