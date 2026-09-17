@@ -72,7 +72,8 @@ res.status(201).json(newProduct);
 app.put("/products/:id",(req,res)=>{
 const productid = Number(req.params.id);
 const updatedProduct = req.body;
-//searches the index 
+
+//searches the index in the array (find the product we want to update)
 const productIndex = Products.findIndex(
     product => product.id === productid
 );
