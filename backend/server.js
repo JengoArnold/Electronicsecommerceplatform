@@ -69,6 +69,18 @@ Products.push(newProduct);
 res.status(201).json(newProduct);
 });
 
+app.put("/products/:id",(req,res)=>{
+const productid = Number(req.params.id);
+const updatedProduct = req.body;
+//searches the index 
+const productIndex = Products.findIndex(
+    product => product.id === productid
+);
+
+
+
+})
+
 
 
 
