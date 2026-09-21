@@ -59,14 +59,26 @@ name: "gaming-laptop",
 price: 2200,
 rating: 4.8
     }),
- .then(response =>{
-  if(!response.ok){
-    throw new Error("Product could not be updated");
-
-  }
-  return response.json();
- })
   })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Product could not be updated");
+        }
+
+        return response.json();
+    })
+    .then(data => {
+        console.log("UPDATED PRODUCT:", data);
+
+        setProduct(prevProducts =>
+            prevProducts.map(product =>
+                product.id === data.id ? data : product
+            )
+        );
+    })
+    .catch(error => {
+        console.log("UPDATE ERROR:", error);
+    });
 }
    //ForThe Add test button 
 
