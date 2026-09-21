@@ -47,7 +47,20 @@ fetch("http://localhost:5000/Products")
 },[]);
 //ForUpdateTestButton(PUT)
 function updateTestProduct(){
-  
+  fetch("https://localhost:5000/Products/1",{
+    method:"PUT",
+    headers:{
+      "Content-Type":"Application/json"
+    },
+
+    body: JSON.stringify({
+id:1,
+name: "gaming-laptop",
+price: 2200,
+rating: 4.8
+    }),
+    app.put
+  })
 }
    //ForThe Add test button 
 
