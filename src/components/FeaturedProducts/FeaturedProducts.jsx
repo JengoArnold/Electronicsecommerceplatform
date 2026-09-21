@@ -47,7 +47,7 @@ fetch("http://localhost:5000/Products")
 },[]);
 //ForUpdateTestButton(PUT)
 function updateTestProduct(){
-  fetch("https://localhost:5000/Products/1",{
+  fetch("http://localhost:5000/Products/1",{
     method:"PUT",
     headers:{
       "Content-Type":"Application/json"
@@ -130,7 +130,7 @@ body: JSON.stringify({
       <h2>FeaturedProducts </h2>
 
 <button onClick={addTestProduct}>Add Test Product</button>
-<button onClick={updateTestProduct}>UpdateTest</button>
+<button onClick={updateTestProduct}>update Test Product</button>
 
 {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
