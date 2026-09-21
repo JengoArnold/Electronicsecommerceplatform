@@ -45,6 +45,10 @@ fetch("http://localhost:5000/Products")
 });
 
 },[]);
+//ForUpdateTestButton(PUT)
+function updateTestProduct(){
+  
+}
    //ForThe Add test button 
 
    function addTestProduct(){
@@ -95,7 +99,7 @@ body: JSON.stringify({
       <h2>FeaturedProducts </h2>
 
 <button onClick={addTestProduct}>Add Test Product</button>
-
+<button onClick={updateTestProduct}>UpdateTest</button>
 
 {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
