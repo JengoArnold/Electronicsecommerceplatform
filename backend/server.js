@@ -101,11 +101,13 @@ if (productIndex === -1) {
     });
 }
 
-const delectedProduct = Products.splice(productIndex,1);
+//splice modifies the array 
+//productindex tells us where to start and that we are to remove (1- HOW MANY PRODUCTS TO REMOVE.) 
+const deletedProduct = Products.splice(productIndex,1);
 
 res.json({
     message:" Product deleted successfully",
-    product:deletedProduct[0]
+    product: deletedProduct[0]
 });
 
 });
