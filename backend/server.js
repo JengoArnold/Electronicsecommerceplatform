@@ -87,13 +87,14 @@ if (productIndex === -1){
 Products[productIndex] = updatedProduct;
 res.json(updatedProduct);
 });
+
 app.delete("/Products/:id", (req,res)=>{
 const productId = Number(req.params.id);
 
 const productIndex = Products.findIndex(
     product => product.id === productId 
 );
-
+ //what if the product doesnt exist 
 if (productIndex === -1) {
     return res.status(404).json({
         message:"Product not found"
