@@ -87,8 +87,27 @@ if (productIndex === -1){
 Products[productIndex] = updatedProduct;
 res.json(updatedProduct);
 });
+app.delete("/Products/:id", (req,res)=>{
+const productId = Number(req.params.id);
 
+const productIndex = Products.findIndex(
+    product => product.id === productId 
+);
 
+if (productIndex === -1) {
+    return res.status(404).json({
+        message:"Product not found"
+    });
+}
+
+const delectedProduct = Products.splice(productIndex,1);
+
+res.json({
+    message:" Product deleted successfully",
+    product:deletedProduct[0]
+});
+
+});
 
 
 
