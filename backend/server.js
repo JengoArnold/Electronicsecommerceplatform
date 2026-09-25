@@ -4,6 +4,8 @@ const express = require("express");
 // import CORS[allows backend to communicste with fromtend ]
 
 const cors = require("cors");
+
+const db = require("./db"); // import our database connection
 // this creates our backend application 
 const app = express(); 
 
