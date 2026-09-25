@@ -112,22 +112,6 @@ res.json({
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Start the server and listen on port 5000.
 app.listen(PORT,()=>{
 console.log(` server running on port ${PORT} `)
