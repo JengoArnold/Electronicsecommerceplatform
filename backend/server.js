@@ -18,6 +18,21 @@ app.use(express.json());
 // this is like a door through which we access our server
 const PORT =5000;
 
+const db = mysql.createConnection({
+   host:"localhost",
+   user:"root",
+   password:"INSERT_USER_PASSWORD",
+   database: "arnold_tech_store"
+});
+
+db.connect((error)=>{
+    if(error){
+        console.log("My_SQL_CONNECTION_FAILED:",error);
+    }else{
+        console.log("MY_SQL_CONNECTION_SUCEESSFUL!");
+    }
+});
+
 const Products=[{
     id:1,
     name :"gaming laptop",
