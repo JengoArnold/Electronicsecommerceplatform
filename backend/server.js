@@ -5,7 +5,7 @@ const express = require("express");
 
 const cors = require("cors");
 
-const db = require("./db"); // import our database connection
+const mysql = require("mysql2");
 // this creates our backend application 
 const app = express(); 
 
