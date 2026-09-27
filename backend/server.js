@@ -65,18 +65,16 @@ app.get("/",(req,res) =>{
     res.send("Ecommerce backend is running");
 });
 
-app.get("/Products",(req,res)=>{
-    if (error){
-        console.log("DATABASE ERROR:",error)
-   
-    //500internal error
-    return res.status(500).json({
-        message:"Failed to fetch products"
-
+app.get("/products", (req, res) => {
+    db.query("SELECT * FROM products", (err, results) => {
+        if (err) {
+            console.log("DATABASE ERROR:", err);
+            return res.status(500).json({
+                message: "Failed to fetch products"
+            });
+        }
+        res.json(results);
     });
-     }
-
-    res.json(results);
 });
 
 app.post('/Products',(req,res)=>{
