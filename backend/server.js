@@ -66,7 +66,17 @@ app.get("/",(req,res) =>{
 });
 
 app.get("/Products",(req,res)=>{
-    res.json(Products);
+    if (error){
+        console.log("DATABASE ERROR:",error)
+   
+    //500internal error
+    return res.status(500).json({
+        message:"Failed to fetch products"
+
+    });
+     }
+
+    res.json(results);
 });
 
 app.post('/Products',(req,res)=>{
