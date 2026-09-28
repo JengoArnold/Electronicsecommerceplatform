@@ -85,7 +85,20 @@ db.query(
     "SELECT * FROM products WHERE id = ?",
     [newProduct.id],
     (err,results) => {
+if(err) {
+    console.log("DATABASE ERROR:",err);
 
+    return res.status(500).json({
+message:"Database error"
+    });
+
+}
+
+if(results.length > 0){
+return res.status(400).json({
+    message: "Product with this ID already exits"
+});
+}
     }
 );
 
