@@ -99,6 +99,35 @@ return res.status(400).json({
     message: "Product with this ID already exits"
 });
 }
+//now here is where we Insert the product into MYSQL
+
+db.query(
+    "INSERT INTO products(id,name,price,rating) VALUES (?,?,?,?)"
+    [
+        newProduct.id,
+        newProduct.name,
+        newProduct.price,
+        newProduct.rating
+    ],
+    //What does (err) => {} mean?
+//This is a callback function.
+    (err) => {
+        
+if(err){
+    console.log("DATABASE ERROR:",err);
+    return res.status(500).json({
+        message:"Failed to create the product"
+    });
+}
+res.status(201).json(newProduct);
+    }
+)
+
+
+
+
+
+
     }
 );
 
