@@ -79,10 +79,15 @@ app.get("/products", (req, res) => {
 
 app.post('/Products',(req,res)=>{
     const newProduct = req.body;
+// Take the product that React sent me and store it in a JavaScript variable called newProduct.
+    
+db.query(
+    "SELECT * FROM products WHERE id = ?",
+    [newProduct.id],
+    (err,results) => {
 
-    const existingProduct = Products.find(
-        product => product.id === newProduct.id
-    );
+    }
+);
 
     if(existingProduct){
         return res.status(400).json({
