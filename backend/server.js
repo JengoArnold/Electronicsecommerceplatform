@@ -149,6 +149,19 @@ if(results.length === 0){
 message:"Product not found"
     });
 }
+
+db.query(
+    "UPDATE products SET name =?, price =?, rating =? WHERE id = ?",
+    [
+        updatedProduct.name,
+        updatedProduct.price,
+        updatedProduct.rating,
+        productid
+    ],
+    (err) => {
+        
+    }
+)
 }
     }
 );
