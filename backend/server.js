@@ -77,7 +77,7 @@ app.get("/products", (req, res) => {
     });
 });
 
-app.post('/Products',(req,res)=>{
+app.post('/products',(req,res)=>{
     const newProduct = req.body;
 // Take the product that React sent me and store it in a JavaScript variable called newProduct.
     
@@ -102,7 +102,7 @@ return res.status(400).json({
 //now here is where we Insert the product into MYSQL
 
 db.query(
-    "INSERT INTO products(id,name,price,rating) VALUES (?,?,?,?)"
+    "INSERT INTO products(id,name,price,rating) VALUES (?,?,?,?)",
     [
         newProduct.id,
         newProduct.name,
@@ -119,26 +119,11 @@ if(err){
         message:"Failed to create the product"
     });
 }
-res.status(201).json(newProduct);
-    }
-)
-
-
-
-
-
-
-    }
-);
-
-    if(existingProduct){
-        return res.status(400).json({
-message:"Product with this ID already exists"
-        });
-    }
-
-Products.push(newProduct);
-res.status(201).json(newProduct);
+                    res.status(201).json(newProduct);
+                }
+            );
+        }
+    );
 });
 
 
@@ -146,20 +131,58 @@ app.put("/products/:id",(req,res)=>{
 const productid = Number(req.params.id);
 const updatedProduct = req.body;
 
-//searches the index in the array (find the product we want to update)
-const productIndex = Products.findIndex(
-    product => product.id === productid
+
+db.query(
+    "SELECT * FROM products WHERE id = ?",
+    [productid],
+    (err,results) => {
+
+    }
 );
-
-if (productIndex === -1){
-    return res.status(404).json({
-        message:"Product not found "
-    });
-}
-
-Products[productIndex] = updatedProduct;
-res.json(updatedProduct);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// app.put("/products/:id",(req,res)=>{
+// const productid = Number(req.params.id);
+// const updatedProduct = req.body;
+
+// //searches the index in the array (find the product we want to update)
+// const productIndex = Products.findIndex(
+//     product => product.id === productid
+// );
+
+// if (productIndex === -1){
+//     return res.status(404).json({
+//         message:"Product not found "
+//     });
+// }
+
+// Products[productIndex] = updatedProduct;
+// res.json(updatedProduct);
+// });
 
 app.delete("/Products/:id", (req,res)=>{
 const productId = Number(req.params.id);
