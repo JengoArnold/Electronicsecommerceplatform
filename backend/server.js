@@ -136,7 +136,20 @@ db.query(
     "SELECT * FROM products WHERE id = ?",
     [productid],
     (err,results) => {
+// check for Data base Error 
+if(err) {
+    console.log("DATABASE ERROR:", err);
 
+    return res.status(500).json({
+message:"Database error"
+    });
+// did my SQL find the product 
+if(results.length === 0){
+    return res.status(404).json({
+message:"Product not found"
+    });
+}
+}
     }
 );
 });
