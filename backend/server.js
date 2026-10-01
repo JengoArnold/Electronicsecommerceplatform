@@ -158,8 +158,17 @@ db.query(
         updatedProduct.rating,
         productid
     ],
+    // This is the callback that runs after MySQL attempts the update.
     (err) => {
-        
+        if(err){
+            console.log("DATABASE ERROR: err");
+
+            return res.status(500).json({
+                message: "Failed to update product"
+            });
+            res.json(updateProduct);
+        }
+
     }
 )
 }
