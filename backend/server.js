@@ -126,23 +126,24 @@ if(err){
     );
 });
 
-
 app.put("/products/:id",(req,res)=>{
-const productid = Number(req.params.id);
-const updatedProduct = req.body;
 
+    const productid = Number(req.params.id);
+    const updatedProduct = req.body;
 
-db.query(
-    "SELECT * FROM products WHERE id = ?",
-    [productid],
-    (err,results) => {
-// check for Data base Error 
-if(err) {
-    console.log("DATABASE ERROR:", err);
+    db.query(
+        "SELECT * FROM products WHERE id = ?",
+        [productid],
+        (err, results) => {
 
-    return res.status(500).json({
-message:"Database error"
-    });
+            if (err) {
+                console.log("DATABASE ERROR:", err);
+
+                return res.status(500).json({
+                    message: "Database error"
+                })
+            };
+
 // did my SQL find the product 
 if(results.length === 0){
     return res.status(404).json({
@@ -161,18 +162,19 @@ db.query(
     // This is the callback that runs after MySQL attempts the update.
     (err) => {
         if(err){
-            console.log("DATABASE ERROR: err");
+            console.log("DATABASE ERROR:" ,err);
+           
 
             return res.status(500).json({
                 message: "Failed to update product"
             });
-            res.json(updateProduct);
+           
         }
-
+ res.json(updatedProduct);
     }
 )
 }
-    }
+    
 );
 });
 
@@ -219,7 +221,7 @@ db.query(
 // res.json(updatedProduct);
 // });
 
-app.delete("/Products/:id", (req,res)=>{
+app.delete("/products/:id", (req,res)=>{
 const productId = Number(req.params.id);
 
 const productIndex = Products.findIndex(
