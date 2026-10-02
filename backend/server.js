@@ -213,9 +213,29 @@ if(err) {
 message:"Database error"
     });
 }
+//checks of the product doesnt exit 
  if(result.length === 0){
-return res
+return res.status(404).json({
+    message:"product not found"
+});
  }
+//NOW delete from my sql 
+ db.query(
+    "DELETE FROM  products WHERE id = ? "
+    [productId]
+
+    (err) => {
+        if(err){
+            console.log("DATABASE ERROR:",err);
+
+            return res.status(500).json({
+message:"Failed to delete the product"
+            });
+        }
+        res.json
+    }
+
+ )
     }
 )   ;
 
