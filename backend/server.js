@@ -199,11 +199,11 @@ db.query(
 // res.json(updatedProduct);
 // });
 
-app.delete("/products/:id",(res,req) => {
+app.delete("/products/:id",(req,res) => {
 const productId = Number(req.params.id);
 
 db.query(
-    " SELECT * FROM products WHERE id = ?"
+    " SELECT * FROM products WHERE id = ?",
     [productId],
     (err,result) => {
 if(err) {
@@ -221,7 +221,7 @@ return res.status(404).json({
  }
 //NOW delete from my sql 
  db.query(
-    "DELETE FROM  products WHERE id = ? "
+    "DELETE FROM  products WHERE id = ?",
     [productId],
 
     (err) => {
