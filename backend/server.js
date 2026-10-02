@@ -206,7 +206,16 @@ db.query(
     " SELECT * FROM products WHERE id = ?"
     [productId],
     (err,result) => {
+if(err) {
+    console.log("DATABASE ERROR:", err);
 
+    return res.status(500).json({
+message:"Database error"
+    });
+}
+ if(result.length === 0){
+return res
+ }
     }
 )   ;
 
