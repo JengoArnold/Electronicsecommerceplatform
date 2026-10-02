@@ -180,28 +180,6 @@ db.query(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // app.put("/products/:id",(req,res)=>{
 // const productid = Number(req.params.id);
 // const updatedProduct = req.body;
@@ -221,29 +199,19 @@ db.query(
 // res.json(updatedProduct);
 // });
 
-app.delete("/products/:id", (req,res)=>{
+app.delete("/products/:id",(res,req) => {
 const productId = Number(req.params.id);
 
-const productIndex = Products.findIndex(
-    product => product.id === productId 
-);
- //what if the product doesnt exist 
-if (productIndex === -1) {
-    return res.status(404).json({
-        message:"Product not found"
-    });
-}
+db.query(
+    " SELECT * FROM products WHERE id = ?"
+    [productId],
+    (err,result) => {
 
-//splice modifies the array 
-//productindex tells us where to start and that we are to remove (1- HOW MANY PRODUCTS TO REMOVE.) 
-const deletedProduct = Products.splice(productIndex,1);
-
-res.json({
-    message:" Product deleted successfully",
-    product: deletedProduct[0]
-});
+    }
+)   ;
 
 });
+
 
 // Start the server and listen on port 5000.
 app.listen(PORT,()=>{
