@@ -222,7 +222,7 @@ return res.status(404).json({
 //NOW delete from my sql 
  db.query(
     "DELETE FROM  products WHERE id = ? "
-    [productId]
+    [productId],
 
     (err) => {
         if(err){
@@ -232,9 +232,11 @@ return res.status(404).json({
 message:"Failed to delete the product"
             });
         }
-        res.json
+       res.json({
+message :"product deleted sucessfully"
+        });
     }
-
+ 
  )
     }
 )   ;
