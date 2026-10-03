@@ -180,6 +180,18 @@ body: JSON.stringify({
   })
  }
  />
+ <input
+ type="number"
+ placeholder="Price"
+ value={newProduct.price}
+ onChange={(e)=>
+  setNewProduct({
+    ...newProduct,
+    price: e.target.value
+  })
+ }
+ 
+ />
 
 
 
