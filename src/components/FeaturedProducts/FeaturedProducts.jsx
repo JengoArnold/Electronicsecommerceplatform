@@ -27,6 +27,12 @@ const[error,setError]=useState("");
 const[loading,setLoading]=useState(true);
 
 const[createError,setCreateError] = useState("");
+//a small temporary object that will hold whatever a user types in the form 
+const[newProduct,setNewProduct]= useState({
+  name:"",
+  price:"",
+  rating:""
+});
 
 useEffect(()=>{
 
@@ -158,12 +164,30 @@ body: JSON.stringify({
 
                 ))}
 
-
-
-
      </div>
+ 
+ 
 
-        
+ <input
+ type="text"
+ placeholder="product name"
+ value={newProduct.name}
+ //onChange will run wenever a user cahnges whats inside the input
+ onChange={(e)=>
+  setNewProduct({
+    ...newProduct,
+    name:e.target.value
+  })
+ }
+ />
+
+
+
+
+
+
+
+
       </div>
 
     
