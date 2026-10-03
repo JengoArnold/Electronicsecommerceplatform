@@ -192,6 +192,18 @@ body: JSON.stringify({
  }
  
  />
+ <input
+  type="number"
+  step="0.1"
+  placeholder="Rating"
+  value={newProduct.rating}
+  onChange={(e) =>
+    setNewProduct({
+      ...newProduct,
+      rating: e.target.value  
+    })
+  }
+/>
 
 
 

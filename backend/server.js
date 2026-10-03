@@ -73,7 +73,7 @@ app.get("/products", (req, res) => {
                 message: "Failed to fetch products"
             });
         }
-        req.json(results);
+        res.json(results);
     });
 });
 
