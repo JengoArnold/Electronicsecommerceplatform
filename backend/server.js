@@ -33,32 +33,32 @@ db.connect((error)=>{
     }
 });
 
-const Products=[{
-    id:1,
-    name :"gaming laptop",
-    price: 2000,
-    rating: 4.5,
+// const Products=[{
+//     id:1,
+//     name :"gaming laptop",
+//     price: 2000,
+//     rating: 4.5,
 
-},
-{id:2,
-    name:"Iphones",
-    price:3000,
-    rating: 4.0,
-},
-{id:3,
-    name:"Refrigirator",
-    price:4000,
-    rating: 4.8,
+// },
+// {id:2,
+//     name:"Iphones",
+//     price:3000,
+//     rating: 4.0,
+// },
+// {id:3,
+//     name:"Refrigirator",
+//     price:4000,
+//     rating: 4.8,
 
-},
-{id:4,
-    name:"Desktops",
-    price: 2000,
-    rating: 4.5,
+// },
+// // {id:4,
+// //     name:"Desktops",
+// //     price: 2000,
+// //     rating: 4.5,
 
-},
+// },
 
-];
+// ];
 
 // my 1st api,Send this message back to whoever made the request
 app.get("/",(req,res) =>{
@@ -73,7 +73,7 @@ app.get("/products", (req, res) => {
                 message: "Failed to fetch products"
             });
         }
-        res.json(results);
+        req.json(results);
     });
 });
 
@@ -177,8 +177,6 @@ db.query(
     
 );
 });
-
-
 
 // app.put("/products/:id",(req,res)=>{
 // const productid = Number(req.params.id);

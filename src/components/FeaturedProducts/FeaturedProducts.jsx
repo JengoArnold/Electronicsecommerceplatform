@@ -30,7 +30,7 @@ const[createError,setCreateError] = useState("");
 
 useEffect(()=>{
 
-fetch("http://localhost:5000/Products")
+fetch("http://localhost:5000/products")
 .then(response=>response.json())
 .then(data=>{
   console.log("DATA RECIEVED:",data);
@@ -47,7 +47,7 @@ fetch("http://localhost:5000/Products")
 },[]);
 //ForUpdateTestButton(PUT)
 function updateTestProduct(){
-  fetch("http://localhost:5000/Products/1",{
+  fetch("http://localhost:5000/products/1",{
     method:"PUT",
     headers:{
       "Content-Type":"Application/json"
@@ -89,7 +89,7 @@ rating: 4.8
    //ForThe Add test button 
 
    function addTestProduct(){
-fetch("http://localhost:5000/Products",{
+fetch("http://localhost:5000/products",{
 method: "POST",
 headers: {
 "Content-Type":"application/json"
