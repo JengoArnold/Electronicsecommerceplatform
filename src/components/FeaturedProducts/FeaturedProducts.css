@@ -35,7 +35,7 @@ border-radius: 20px;
     border-radius: none;
   
     font-size: 14px;
-    width: 100%;
+    width: 95%;
     display: flex;
     justify-content: center;
     background-color: orange;
@@ -44,5 +44,5 @@ border-radius: 20px;
   font-weight: bold;
 }
 .add-product-form button:hover{
-    background-color: #0056b3;
+    background-color: #a4c9f1;
 }

@@ -135,14 +135,32 @@ body: JSON.stringify({
 });
 };
 
+function addProduct(event){
+  event.preventDefault();
+  console.log("FORM SUBMITTED");
+  console.log(newProduct);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   return (
     <div className="Featured-Products">
       <h2>FeaturedProducts </h2>
 
-<button onClick={addTestProduct}>Add Test Product</button>
-<button onClick={updateTestProduct}>update Test Product</button>
 
 {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
@@ -166,11 +184,12 @@ body: JSON.stringify({
 
      </div>
  
- <form className="add-product-form"> 
+ <form className="add-product-form" onSubmit={addProduct}> 
+  <h2>Add Product</h2>
 
  <input
  type="text"
- placeholder="product name"
+ placeholder="Product name"
  value={newProduct.name}
  //onChange will run wenever a user cahnges whats inside the input
  onChange={(e)=>
