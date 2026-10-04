@@ -166,7 +166,7 @@ body: JSON.stringify({
 
      </div>
  
- 
+ <form className="add-product-form"> 
 
  <input
  type="text"
@@ -205,9 +205,9 @@ body: JSON.stringify({
   }
 />
 
+<button type="submit">Add product</button>
 
-
-
+ </form>
 
 
 

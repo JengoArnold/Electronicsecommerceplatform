@@ -10,3 +10,15 @@
     flex-wrap: wrap;
     margin-top: 40px;
 }
+.add-product-form{
+display: flex;
+flex-direction: column;
+gap:20px;
+width: 90%;
+padding: 25px;
+max-width: 500px;
+border-radius: 20px;
+ box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+ background-color: #ffffff;
+   margin: 30px auto;
+}
