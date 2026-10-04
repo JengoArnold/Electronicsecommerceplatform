@@ -1,64 +1,85 @@
-
-.hero{
-
-    display:flex;
-
-    justify-content:space-between;
- border: 1px solid rgb(153, 153, 153);
- width: 70%;
-    align-items:center;
-margin:0 auto;
-    padding: 80px 80px;
-
-}
-.hero-content h1{
-
-font-size:20px;
-
-margin-bottom:20px;
-
-}
-.hero-content p{
-
-font-size:18px;
-
-line-height:1.6;
-
+.hero,
+.hero * {
+  box-sizing: border-box;
 }
 
-
-.hero-image img{
-
-width:400px;
-
-}
-.hero-content{
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
   width: 100%;
-    height: 200px;
-     
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 6vw, 5rem);
 }
 
-.hero-image{
-    width:50%;
-    display:flex;
-    justify-content:center;
-    
+.hero-content {
+  min-width: 0;
 }
-.hero-content button{
-    padding:15px 30px;
-    background:black;
-    color:white;
-    border:none;
-    cursor:pointer;
-    border-radius:8px;
-    margin-right:15px;
-    margin-top:20px;
-    margin-bottom: 20px;
+
+.hero-content h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 1.1;
+  text-wrap: balance;
 }
-.hero-content button:hover{
-   background: color #333;
-    transition:0.9s ease;
-    border-radius: 12px;
+
+.hero-content p {
+  max-width: 38rem;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.6;
+}
+
+.hero-content button {
+  min-height: 44px;
+  margin: 0.35rem 0.5rem 0.35rem 0;
+  padding: 0.75rem 1.25rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+.hero-image {
+  min-width: 0;
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-image img {
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .hero-content button {
+    width: 100%;
+    margin: 0.35rem 0;
+  }
+
+  .hero-image img {
+    max-height: 300px;
+    border-radius: 8px;
+  }
 }
 
 
