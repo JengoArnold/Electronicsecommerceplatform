@@ -135,6 +135,7 @@ body: JSON.stringify({
 });
 };
 
+
 function addProduct(event){
   event.preventDefault();
   //Post request to my express API
@@ -142,14 +143,22 @@ function addProduct(event){
 method:"POST",
 headers:{
   "Content-Type" : "application/json"
-},
+     },
+
 body:JSON.stringify({
-  id: Date.now(),
+ 
   name: newProduct.name,
   price: Number(newProduct.price),
   rating: Number(newProduct.rating)
-})
-  });
+         })
+           })
+   //This coverts the data sent from the backend from JSON to javascript Object
+     .then(response => response.json())
+     //take the product the backend sent back and put it into data
+     .then(data =>{
+      console.log("PRODUCT CREATE:", data);
+     });
+     
 }
 
 
