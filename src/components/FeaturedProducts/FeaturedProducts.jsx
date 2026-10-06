@@ -157,6 +157,15 @@ body:JSON.stringify({
      //take the product the backend sent back and put it into data
      .then(data =>{
       console.log("PRODUCT CREATE:", data);
+      
+//For the product to immediately appear in mySQL and react app
+setProduct(prevProducts =>[
+  //keep the existing products
+  ...prevProducts,
+  //data means add the newly created product
+  data
+]);
+
      });
      
 }
