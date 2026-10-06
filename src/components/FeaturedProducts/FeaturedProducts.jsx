@@ -137,8 +137,19 @@ body: JSON.stringify({
 
 function addProduct(event){
   event.preventDefault();
-  console.log("FORM SUBMITTED");
-  console.log(newProduct);
+  //Post request to my express API
+  fetch("http://localhost:5000/products",{
+method:"POST",
+headers:{
+  "Content-Type" : "application/json"
+},
+body:JSON.stringify({
+  id: Date.now(),
+  name: newProduct.name,
+  price: Number(newProduct.price),
+  rating: Number(newProduct.rating)
+})
+  });
 }
 
 
