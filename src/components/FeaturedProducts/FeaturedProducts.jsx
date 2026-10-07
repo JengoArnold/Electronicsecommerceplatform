@@ -166,8 +166,13 @@ setNewProduct({
   name:"",
   price:"",
   rating:""
-});
 
+});
+     })
+     //incase the new product has failed java script can display the error 
+     .createError(error =>{
+console.log("CREATE ERROR:", error);
+setCreateError(error.message);
      });
      
 }
@@ -199,6 +204,11 @@ setNewProduct({
 
      </div>
  
+
+
+ {createError &&(
+  <p className="form-error">{createError}</p>
+ )}
  <form className="add-product-form" onSubmit={addProduct}> 
   <h2>Add Product</h2>
 
