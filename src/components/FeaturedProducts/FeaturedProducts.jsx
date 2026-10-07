@@ -149,6 +149,45 @@ setProduct(prevProducts =>
 
 }
 
+// Delete
+function deleteProduct(productId) {
+
+    fetch(`http://localhost:5000/products/${productId}`, {
+        method: "DELETE"
+    })
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error("Product could not be deleted");
+            }
+
+            return response.json();
+        })
+        .then(data => {
+
+            console.log("PRODUCT DELETED:", data);
+
+            setProduct(prevProducts =>
+                prevProducts.filter(item => item.id !== productId)
+            );
+        })
+        .catch(error => {
+            console.log("DELETE ERROR:", error);
+        });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   return (
@@ -176,6 +215,9 @@ setProduct(prevProducts =>
                      <button onClick={() => updateProduct(item)}>
         Update Product
     </button>
+    <button onClick={() => deleteProduct(item.id)}>
+    Delete Product
+</button>
 
 </div>
 
