@@ -46,3 +46,13 @@ border-radius: 20px;
 .add-product-form button:hover{
     background-color: #a4c9f1;
 }
+.form-error {
+    width: 90%;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #ffe5e5;
+    color: #d00000;
+    border-radius: 8px;
+    text-align: center;
+}

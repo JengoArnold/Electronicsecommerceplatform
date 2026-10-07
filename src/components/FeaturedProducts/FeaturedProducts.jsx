@@ -51,89 +51,24 @@ fetch("http://localhost:5000/products")
 });
 
 },[]);
-//ForUpdateTestButton(PUT)
-function updateTestProduct(){
-  fetch("http://localhost:5000/products/1",{
-    method:"PUT",
-    headers:{
-      "Content-Type":"Application/json"
-    },
-
-    body: JSON.stringify({
-id:1,
-name: "gaming-laptop",
-price: 2200,
-rating: 4.8
-    }),
-  })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Product could not be updated");
-        }
-
-        return response.json();
-    })
-    .then(data => {
-        console.log("UPDATED PRODUCT:", data);
-
-        setProduct(prevProducts =>
-            prevProducts.map(product =>
-                product.id === data.id ? data : product
-            )
-        );
-    })
-    .catch(error => {
-        console.log("UPDATE ERROR:", error);
-    });
 
 
-}
-   //ForThe Add test button 
-
-   function addTestProduct(){
-fetch("http://localhost:5000/products",{
-method: "POST",
-headers: {
-"Content-Type":"application/json"
-},
-//converts JSON text that can be sent in the HTTP request
-body: JSON.stringify({
-  id:5,
-  name:"SamSung TV",
-  price:1500,
-  rating:4.5
-})
-})
-// .then(response=> response.json())
-// .then(data =>{
-//   console.log("PRODUCT CREATED:", data);
-//   setProduct(prevProducts =>[...prevProducts,data]);
-// })
-// .catch(error =>{
-//   console.log("ERROR:",error);
-// });
-//    
-
-.then(response => {
-  if(!response.ok){
-    throw new Error("Product could not be created ");
-  }
-
-  return response.json();
-})
-.then(data => {
-  console.log("PRODUCT CREATED:",data);
-  setProduct(prevProducts =>[...prevProducts,data]);
-})
-.catch(error =>{
-  console.log("ERROR:",error);
-  setCreateError(error.message);
-});
-};
+ 
 
 
 function addProduct(event){
   event.preventDefault();
+//Incase u dont want to send empty fields in our form and irrelevant data to the data base,this stops the fetch request(form Validation)
+if (
+    !newProduct.name ||
+    !newProduct.price ||
+    !newProduct.rating
+) {
+    setCreateError("Please fill in all fields.");
+    return;
+}
+
+
   //Post request to my express API
   fetch("http://localhost:5000/products",{
 method:"POST",
@@ -170,12 +105,36 @@ setNewProduct({
 });
      })
      //incase the new product has failed java script can display the error 
-     .createError(error =>{
+     .catch(error =>{
 console.log("CREATE ERROR:", error);
 setCreateError(error.message);
      });
      
 }
+
+//Creating an Update Product with React
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="Featured-Products">
