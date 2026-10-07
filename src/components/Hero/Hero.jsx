@@ -6,7 +6,7 @@ function Hero() {
   return (
     <section className='hero'>
       <div className='hero-content'> 
-      <h1>Welcome to Arnold Electronics Store</h1>
+      <h1>Welcome to ArN Electronics Store</h1>
        
 
       <p>

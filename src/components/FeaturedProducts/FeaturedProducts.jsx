@@ -87,10 +87,6 @@ rating: 4.8
     });
 
 
-
-
-
-    
 }
    //ForThe Add test button 
 
@@ -165,26 +161,16 @@ setProduct(prevProducts =>[
   //data means add the newly created product
   data
 ]);
+//Clears the form for the next product
+setNewProduct({
+  name:"",
+  price:"",
+  rating:""
+});
 
      });
      
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <div className="Featured-Products">
