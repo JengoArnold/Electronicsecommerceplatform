@@ -25,6 +25,7 @@ const[error,setError]=useState("");
 
 //Tracks if the products are still loading 
 const[loading,setLoading]=useState(true);
+const[editingProduct,setEditingProduct]=useState("null");
 
 const[createError,setCreateError] = useState("");
 //a small temporary object that will hold whatever a user types in the form 
@@ -111,6 +112,9 @@ setCreateError(error.message);
 
 //Creating an Update Product with React
 function updateProduct(product){
+
+  console.log("UPDATE BUTTON CLICKED:",product);
+
   const updateProduct ={
     name:product.name,
     price: Number(product.price) +100,
