@@ -53,9 +53,6 @@ fetch("http://localhost:5000/products")
 },[]);
 
 
- 
-
-
 function addProduct(event){
   event.preventDefault();
 //Incase u dont want to send empty fields in our form and irrelevant data to the data base,this stops the fetch request(form Validation)
