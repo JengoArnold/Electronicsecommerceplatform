@@ -25,7 +25,7 @@ const[error,setError]=useState("");
 
 //Tracks if the products are still loading 
 const[loading,setLoading]=useState(true);
-const[editingProduct,setEditingProduct]=useState("null");
+const[editingProduct,setEditingProduct]=useState(null);
 
 const[createError,setCreateError] = useState("");
 //a small temporary object that will hold whatever a user types in the form 
@@ -214,7 +214,7 @@ function deleteProduct(productId) {
                         selectProduct={selectProduct}
                     />
                      <button onClick={() => updateProduct(item)}>
-        Update Product
+        Edit product
     </button>
     <button onClick={() => deleteProduct(item.id)}>
     Delete Product
@@ -225,7 +225,11 @@ function deleteProduct(productId) {
                 ))}
 
      </div>
- 
+<form className="addProductForm" onSubmit={addProduct}>
+  
+  </form> 
+
+
 
 
  {createError &&(
