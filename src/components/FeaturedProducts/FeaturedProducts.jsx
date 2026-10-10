@@ -281,7 +281,7 @@ function deleteProduct(productId) {
      </div>
 {
   editingProduct &&(
-    <form className="add-product-form"   onSubmit={saveEditedProduct}    >
+    <form className="add-product-form"  onSubmit={saveEditedProduct} >
 <h2>Edit Product</h2>
 <input
 type="text"
