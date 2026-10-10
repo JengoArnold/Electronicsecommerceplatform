@@ -150,24 +150,47 @@ setProduct(prevProducts =>
 
 }
 
-function saveEditedProduct(event){
+function saveEditedProduct(event) {
   event.preventDefault();
-  fetch("http://localhost:5000/products/${editingProduct.id}",{
+
+  fetch(`http://localhost:5000/products/${editingProduct.id}`    ,{
     method:"PUT",
     headers:{
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      name:
+      name:editingProduct.name,
+      price:Number(editingProduct.price),
+      rating:Number(editingProduct.rating)
     })
+.then(response => {
+  if (!response.ok){
+    throw new Error("product could not be Update ");
+
+  }
+  return response.json();
+})
+.then(data =>{
+  console.log("PRODUCT UPDATED:",data);
+
+  setProduct(prevProducts =>
+    prevProducts.map(item => 
+      item.id === editingProduct.id
+      / {
+        ...editingProduct,
+        price:Number(editingProduct.price),
+        rating:Number(editingProduct.rating)
+      }
+      : item 
+    )
+  );
+  setEditingProduct(null);
+})
+.catch(error => {
+  console.log("UPDATE ERROR:",error);
+});
+
 }
-
-
-
-
-
-
-
 
 
 
