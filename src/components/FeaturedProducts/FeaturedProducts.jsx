@@ -110,47 +110,6 @@ setCreateError(error.message);
      
 }
 
-//Creating an Update Product with React
-function updateProduct(product){
-
-  console.log("UPDATE BUTTON CLICKED:",product);
-
-  const updateProduct ={
-    name:product.name,
-    price: Number(product.price) +100,
-    rating: Number(product.rating)
-  };
-
-fetch(`http://localhost:5000/products/${product.id}`,{
-  method:"PUT",
-  headers:{
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(updateProduct)
-})
-.then(response =>{
-  if(!response.ok){
-    throw new Error("Product colud not be Updated");
-
-  }
-  return response.json();
-})
-.then(data =>{
-  console.log("PRODUCT UPDATED:", data);
-setProduct(prevProducts => 
-  prevProducts.map(item =>
-    item.id === data.id ? data : item 
-  )
-);
-
-})
-.catch(error => {
-  console.log("UPDATE ERROR:" ,error);
-});
-
-}
-
-
 function saveEditedProduct(event) {
     event.preventDefault();
 
