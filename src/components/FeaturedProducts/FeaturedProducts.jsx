@@ -213,9 +213,11 @@ function deleteProduct(productId) {
                         product={item}
                         selectProduct={selectProduct}
                     />
-                     <button onClick={() => updateProduct(item)}>
-        Edit product
-    </button>
+                   
+<button onClick={() => setEditingProduct(item)}>
+    Edit Product
+</button>
+
     <button onClick={() => deleteProduct(item.id)}>
     Delete Product
 </button>
@@ -225,10 +227,57 @@ function deleteProduct(productId) {
                 ))}
 
      </div>
-<form className="addProductForm" onSubmit={addProduct}>
-  
-  </form> 
+{
+  editingProduct &&(
+    <form className="add-product-form">
+<h2>Edit Product</h2>
+<input
+type="text"
+placeholder="Product name"
+value={editingProduct.name}
+onChange={(e)=>
+  setEditingProduct({
+    ...editingProduct,
+    name: e.target.value 
+  })
+}
+/>
+<input
+type="number"
+placeholder="Price"
+value={editingProduct.price}
+onChange={(e)=>
+  setEditingProduct({
+    ...editingProduct,
+    price:e.target.value
+  })
+}
+/>
+<input
+type="number"
+step="0.1"
+placeholder="rating"
+value={editingProduct.rating}
+onChange={(e)=>
+  setEditingProduct({
+ ...editingProduct,
+ rating:e.target.value
+  })
+}
 
+/>
+ <button type="submit">Save Changes</button>
+
+        <button
+            type="button"
+            onClick={() => setEditingProduct(null)}
+        >
+            Cancel
+        </button>
+
+    </form>
+  )
+}
 
 
 
