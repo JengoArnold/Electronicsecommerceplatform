@@ -150,6 +150,30 @@ setProduct(prevProducts =>
 
 }
 
+function saveEditedProduct(event){
+  event.preventDefault();
+  fetch("http://localhost:5000/products/${editingProduct.id}",{
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      name:
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Delete
 function deleteProduct(productId) {
 
