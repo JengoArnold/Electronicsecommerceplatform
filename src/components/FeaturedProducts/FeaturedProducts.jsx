@@ -150,47 +150,52 @@ setProduct(prevProducts =>
 
 }
 
+
 function saveEditedProduct(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  fetch(`http://localhost:5000/products/${editingProduct.id}`    ,{
-    method:"PUT",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      name:editingProduct.name,
-      price:Number(editingProduct.price),
-      rating:Number(editingProduct.rating)
+    fetch(`http://localhost:5000/products/${editingProduct.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: editingProduct.name,
+            price: Number(editingProduct.price),
+            rating: Number(editingProduct.rating)
+        })
     })
-.then(response => {
-  if (!response.ok){
-    throw new Error("product could not be Update ");
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Product could not be updated");
+            }
 
-  }
-  return response.json();
-})
-.then(data =>{
-  console.log("PRODUCT UPDATED:",data);
+            return response.json();
+        })
+        .then(data => {
+            console.log("PRODUCT UPDATED:", data);
 
-  setProduct(prevProducts =>
-    prevProducts.map(item => 
-      item.id === editingProduct.id
-      / {
-        ...editingProduct,
-        price:Number(editingProduct.price),
-        rating:Number(editingProduct.rating)
-      }
-      : item 
-    )
-  );
-  setEditingProduct(null);
-})
-.catch(error => {
-  console.log("UPDATE ERROR:",error);
-});
+            setProduct(prevProducts =>
+                prevProducts.map(item =>
+                    item.id === editingProduct.id
+                        ? {
+                            ...editingProduct,
+                            price: Number(editingProduct.price),
+                            rating: Number(editingProduct.rating)
+                        }
+                        : item
+                )
+            );
 
+            setEditingProduct(null);
+        })
+        .catch(error => {
+            console.log("UPDATE ERROR:", error);
+        });
 }
+
+
+
 
 
 
@@ -276,7 +281,7 @@ function deleteProduct(productId) {
      </div>
 {
   editingProduct &&(
-    <form className="add-product-form">
+    <form className="add-product-form"   onSubmit={saveEditedProduct}    >
 <h2>Edit Product</h2>
 <input
 type="text"
