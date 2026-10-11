@@ -246,38 +246,42 @@ function deleteProduct(productId) {
     
      /> 
 
-
 {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
       {error && <p>{error}</p>}
-     <div className="Product-grid">
+  
+<div className="Product-grid">
+    {filteredProducts.length === 0 ? (
+        <p>No products found.</p>
+    ) : (
+        filteredProducts.map((item) => (
+            <div className="product-item" key={item.id}>
+                <ProductCard
+                    name={item.name}
+                    price={item.price}
+                    rating={item.rating}
+                    Image={productImages[item.id]}
+                    addToCart={addToCart}
+                    product={item}
+                    selectProduct={selectProduct}
+                />
 
- {filteredProducts.map((item) => (
-<div className="product-item" key={item.id}>
-                    <ProductCard
-                        key={item.id}
-                        name={item.name}
-                        price={item.price}
-                        rating={item.rating}
-                        Image={productImages[item.id]}
-                        addToCart={addToCart}
-                        product={item}
-                        selectProduct={selectProduct}
-                    />
-                   
-<button onClick={() => setEditingProduct(item)}>
-    Edit Product
-</button>
+                <button onClick={() => setEditingProduct(item)}>
+                    Edit Product
+                </button>
 
-    <button onClick={() => deleteProduct(item.id)}>
-    Delete Product
-</button>
-
+                <button onClick={() => deleteProduct(item.id)}>
+                    Delete Product
+                </button>
+            </div>
+        ))
+    )}
 </div>
 
-                ))}
 
-     </div>
+
+
+  
 {
   editingProduct &&(
     <form className="add-product-form"  onSubmit={saveEditedProduct} >
