@@ -21,6 +21,10 @@ function FeaturedProducts({addToCart , selectProduct}) {
 const [Product, setProduct] = useState([]);
 const [searchTerm,setSearchTerm]=useState("");
 
+const filteredProducts = Product.filter((item) =>
+item.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
 //error when the fetch fails 
 const[error,setError]=useState("");
 
@@ -248,7 +252,7 @@ function deleteProduct(productId) {
       {error && <p>{error}</p>}
      <div className="Product-grid">
 
- {Product.map((item) => (
+ {filteredProducts.map((item) => (
 <div className="product-item" key={item.id}>
                     <ProductCard
                         key={item.id}
