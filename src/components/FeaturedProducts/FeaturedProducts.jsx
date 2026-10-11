@@ -19,6 +19,7 @@ function FeaturedProducts({addToCart , selectProduct}) {
 
   // gets products get from backend 
 const [Product, setProduct] = useState([]);
+const [searchTerm,setSearchTerm]=useState("");
 
 //error when the fetch fails 
 const[error,setError]=useState("");
@@ -230,22 +231,16 @@ function deleteProduct(productId) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div className="Featured-Products">
       <h2>FeaturedProducts </h2>
+     <input
+     type="text"
+     placeholder="Search products"
+     value={searchTerm}
+     onChange={(e) => setSearchTerm(e.target.value)}
+    
+     /> 
 
 
 {createError && <p>{createError}</p>}
