@@ -23,8 +23,6 @@ function Cart({cartItems,removeFromCart,   increaseQuantity,
   </div>
 ):(
 
-
-
     cartItems.map((item)=>(
       
 <div key={item.id} className="cart-item">
@@ -60,7 +58,11 @@ function Cart({cartItems,removeFromCart,   increaseQuantity,
 
  {cartItems.length > 0 && (
     <div className="total-cart">
-      <p >Total: ${total}</p>
+      <p >Total: ${total.toLocaleString("en-US",{
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })}
+      </p>
     </div>
   )}
 

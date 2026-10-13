@@ -7,6 +7,7 @@ import Cart from "./components/Cart/Cart";
 import React from 'react';
 import { useState } from 'react';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import Checkout from "./components/Checkout";
 
 
 function App() {
@@ -129,6 +130,7 @@ const closeDetails =()=>{
                 increaseQuantity={increaseQuantity}
                 decreaseQuantity={decreaseQuantity}
             />
+            <Checkout/>
 
         </div>
     );
