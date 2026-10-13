@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 
-function Checkout() {
+function Checkout({ cartItems }) {
     const [customerName, setCustomerName] = useState("");
     const [customerEmail, setCustomerEmail] = useState("");
     const [customerPhone, setCustomerPhone] = useState("");
     const [customerAddress, setCustomerAddress] = useState("");
     const [error,setError] = useState("");
     const [success,setSuccess] = useState("")
+
+
+      const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
     function handleSubmit(event){
         event.preventDefault();
@@ -31,6 +34,31 @@ function Checkout() {
         <form className="checkout" onSubmit={handleSubmit}>
             <h2>Checkout</h2>
             <p>Enter your details to place your order.</p>
+
+<h3>Order Summary</h3>
+
+{cartItems.length === 0 ? (
+    <p>Your cart is empty.</p>
+) : (
+    cartItems.map((item) => (
+        <div key={item.id}>
+            <p>
+                {item.name} × {item.quantity}
+                {" — $"}
+                {(item.price * item.quantity).toLocaleString("en-US")}
+            </p>
+        </div>
+    ))
+)}
+
+<h3>
+    Total: ${total.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })}
+</h3>
+
+            
 
             <input
                 type="text"
