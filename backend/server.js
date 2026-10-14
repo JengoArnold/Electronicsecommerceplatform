@@ -242,6 +242,204 @@ message :"product deleted sucessfully"
 });
 
 
+app.post("/orders", (req, res) => {
+    const {
+        customerName,
+        customerEmail,
+        customerPhone,
+        customerAddress,
+        cartItems
+    } = req.body;
+
+    // 1. Validate the customer's details.
+    if (
+        !customerName?.trim() ||
+        !customerEmail?.trim() ||
+        !customerPhone?.trim() ||
+        !customerAddress?.trim() ||
+        !Array.isArray(cartItems) ||
+        cartItems.length === 0
+    ) {
+        return res.status(400).json({
+            message: "Please provide customer details and cart items."
+        });
+    }
+
+    // 2. Validate every product ID and quantity.
+    const validItems = cartItems.every(item =>
+        Number.isInteger(Number(item.id)) &&
+        Number(item.id) > 0 &&
+        Number.isInteger(Number(item.quantity)) &&
+        Number(item.quantity) > 0
+    );
+
+    if (!validItems) {
+        return res.status(400).json({
+            message: "Invalid product or quantity."
+        });
+    }
+
+    // 3. Start a database transaction.
+    db.beginTransaction((err) => {
+        if (err) {
+            console.log("TRANSACTION ERROR:", err);
+            return res.status(500).json({
+                message: "Could not start the order."
+            });
+        }
+
+        // Roll back changes if anything goes wrong.
+        const failOrder = (status, message, error) => {
+            if (error) {
+                console.log("ORDER ERROR:", error);
+            }
+
+            db.rollback(() => {
+                res.status(status).json({ message });
+            });
+        };
+
+        // 4. Get the real prices from MySQL.
+        const productIds = cartItems.map(item => Number(item.id));
+
+        db.query(
+            "SELECT id, price FROM products WHERE id IN (?)",
+            [productIds],
+            (err, products) => {
+                if (err) {
+                    return failOrder(
+                        500,
+                        "Failed to check products.",
+                        err
+                    );
+                }
+
+                // Ensure every requested product exists.
+                const productsById = new Map(
+                    products.map(product => [
+                        Number(product.id),
+                        Number(product.price)
+                    ])
+                );
+
+                const allProductsExist = cartItems.every(item =>
+                    productsById.has(Number(item.id))
+                );
+
+                if (!allProductsExist) {
+                    return failOrder(
+                        400,
+                        "One or more products no longer exist."
+                    );
+                }
+
+                // 5. Calculate the total using database prices.
+                const total = cartItems.reduce((sum, item) => {
+                    const price = productsById.get(Number(item.id));
+                    return sum + price * Number(item.quantity);
+                }, 0);
+
+                // 6. Save the customer's order.
+                db.query(
+                    `INSERT INTO orders
+                    (customer_name, customer_email, customer_phone,
+                     customer_address, total_amount)
+                    VALUES (?, ?, ?, ?, ?)`,
+                    [
+                        customerName.trim(),
+                        customerEmail.trim(),
+                        customerPhone.trim(),
+                        customerAddress.trim(),
+                        total
+                    ],
+                    (err, result) => {
+                        if (err) {
+                            return failOrder(
+                                500,
+                                "Failed to save the order.",
+                                err
+                            );
+                        }
+
+                        const orderId = result.insertId;
+                        let index = 0;
+
+                        // 7. Save each product in the order.
+                        const saveNextItem = () => {
+                            if (index >= cartItems.length) {
+                                // All items saved. Commit everything.
+                                return db.commit(err => {
+                                    if (err) {
+                                        return failOrder(
+                                            500,
+                                            "Failed to complete the order.",
+                                            err
+                                        );
+                                    }
+
+                                    return res.status(201).json({
+                                        message: "Order saved successfully.",
+                                        orderId,
+                                        total
+                                    });
+                                });
+                            }
+
+                            const item = cartItems[index];
+                            const productId = Number(item.id);
+                            const quantity = Number(item.quantity);
+                            const unitPrice = productsById.get(productId);
+
+                            db.query(
+                                `INSERT INTO order_items
+                                (order_id, product_id, quantity, unit_price)
+                                VALUES (?, ?, ?, ?)`,
+                                [
+                                    orderId,
+                                    productId,
+                                    quantity,
+                                    unitPrice
+                                ],
+                                err => {
+                                    if (err) {
+                                        return failOrder(
+                                            500,
+                                            "Failed to save order items.",
+                                            err
+                                        );
+                                    }
+
+                                    index++;
+                                    saveNextItem();
+                                }
+                            );
+                        };
+
+                        saveNextItem();
+                    }
+                );
+            }
+        );
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Start the server and listen on port 5000.
 app.listen(PORT,()=>{
 console.log(` server running on port ${PORT} `)
