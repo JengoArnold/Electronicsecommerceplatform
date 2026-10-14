@@ -130,7 +130,7 @@ const closeDetails =()=>{
                 increaseQuantity={increaseQuantity}
                 decreaseQuantity={decreaseQuantity}
             />
-            <Checkout  cartItems={cartItems}   />
+            <Checkout  cartItems={cartItems} />
 
         </div>
     );
