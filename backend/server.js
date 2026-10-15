@@ -482,7 +482,79 @@ app.post("/register", (req, res) => {
                 });
             }
         );
-    });
+        // Login end point
+   
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    // Step 1: Validate the submitted details
+    if (
+        typeof email !== "string" ||
+        typeof password !== "string" ||
+        !email.trim() ||
+        !password
+    ) {
+        return res.status(400).json({
+            message: "Email and password are required."
+        });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
+    // Step 2: Find the user in the database
+    db.query(
+        "SELECT id, name, email, password_hash, role FROM users WHERE email = ?",
+        [cleanEmail],
+        (error, results) => {
+            if (error) {
+                console.log("LOGIN DATABASE ERROR:", error);
+                return res.status(500).json({
+                    message: "Login failed. Please try again."
+                });
+            }
+
+            // Step 3: Check whether the account exists
+            if (results.length === 0) {
+                return res.status(401).json({
+                    message: "Invalid email or password."
+                });
+            }
+
+            const user = results[0];
+
+            // Step 4: Compare the submitted password with its hash
+            bcrypt.compare(
+                password,
+                user.password_hash,
+                (compareError, isMatch) => {
+                    if (compareError) {
+                        return res.status(500).json({
+                            message: "Login failed. Please try again."
+                        });
+                    }
+
+                    if (!isMatch) {
+                        return res.status(401).json({
+                            message: "Invalid email or password."
+                        });
+                    }
+
+                    // Step 5: Return safe user details
+                    return res.status(200).json({
+                        message: "Login successful.",
+                        user: {
+                            id: user.id,
+                            name: user.name,
+                            email: user.email,
+                            role: user.role
+                        }
+                    });
+                }
+            );
+        }
+    );
+});
+ });
 });
 
 
