@@ -424,7 +424,24 @@ app.post("/orders", (req, res) => {
 });
 
 
-
+const bcrypt = require("bcryptjs");
+// Register a new customer
+app.post("/register", (req, res) => {
+    const { name, email, password } = req.body;
+     // 1. Check required fields
+    if (
+        typeof name !== "string" ||
+        typeof email !== "string" ||
+        typeof password !== "string" ||
+        !name.trim() ||
+        !email.trim() ||
+        password.length < 8 ||
+        password.length > 72
+    ) {
+          return res.status(400).json({
+            message: "Enter a name, valid email and password of 8–72 characters."
+        });
+    } 
 
 
 
