@@ -442,8 +442,48 @@ app.post("/register", (req, res) => {
             message: "Enter a name, valid email and password of 8–72 characters."
         });
     } 
+ const cleanName = name.trim();
+    const cleanEmail = email.trim().toLowerCase();
+      // 2. Hash the password
+    bcrypt.hash(password, 12, (hashError, passwordHash) => {
+        if (hashError) {
+            console.log("PASSWORD HASH ERROR:", hashError);
+           return res.status(500).json({
+                message: "Could not create account."
+            });
+        }   
+ // 3. Save the account in MySQL
+        db.query(
+            `INSERT INTO users (name, email, password_hash)
+             VALUES (?, ?, ?)`,
+            [cleanName, cleanEmail, passwordHash],
+            (err, result) => {
+                if (err) {
+                    if (err.code === "ER_DUP_ENTRY") {
+                        return res.status(409).json({
+                            message: "An account with this email already exists."
+                        });
+                    }
 
-
+                    console.log("REGISTRATION ERROR:", err);
+                     return res.status(500).json({
+                        message: "Could not create account."
+                    });
+                }
+                  // 4. Return safe account information
+                return res.status(201).json({
+                    message: "Account created successfully.",
+                    user: {
+                        id: result.insertId,
+                        name: cleanName,
+                        email: cleanEmail,
+                        role: "customer"
+                    }
+                });
+            }
+        );
+    });
+});
 
 
 
