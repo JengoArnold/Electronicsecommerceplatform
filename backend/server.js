@@ -424,11 +424,13 @@ app.post("/orders", (req, res) => {
 });
 
 
+
 const bcrypt = require("bcryptjs");
-// Register a new customer
+
+// REGISTER A NEW CUSTOMER
 app.post("/register", (req, res) => {
     const { name, email, password } = req.body;
-     // 1. Check required fields
+
     if (
         typeof name !== "string" ||
         typeof email !== "string" ||
@@ -438,21 +440,23 @@ app.post("/register", (req, res) => {
         password.length < 8 ||
         password.length > 72
     ) {
-          return res.status(400).json({
+        return res.status(400).json({
             message: "Enter a name, valid email and password of 8–72 characters."
         });
-    } 
- const cleanName = name.trim();
+    }
+
+    const cleanName = name.trim();
     const cleanEmail = email.trim().toLowerCase();
-      // 2. Hash the password
+
     bcrypt.hash(password, 12, (hashError, passwordHash) => {
         if (hashError) {
             console.log("PASSWORD HASH ERROR:", hashError);
-           return res.status(500).json({
+
+            return res.status(500).json({
                 message: "Could not create account."
             });
-        }   
- // 3. Save the account in MySQL
+        }
+
         db.query(
             `INSERT INTO users (name, email, password_hash)
              VALUES (?, ?, ?)`,
@@ -466,11 +470,12 @@ app.post("/register", (req, res) => {
                     }
 
                     console.log("REGISTRATION ERROR:", err);
-                     return res.status(500).json({
+
+                    return res.status(500).json({
                         message: "Could not create account."
                     });
                 }
-                  // 4. Return safe account information
+
                 return res.status(201).json({
                     message: "Account created successfully.",
                     user: {
@@ -482,12 +487,14 @@ app.post("/register", (req, res) => {
                 });
             }
         );
-        // Login end point
-   
+    });
+});
+
+
+// LOGIN A CUSTOMER
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
-    // Step 1: Validate the submitted details
     if (
         typeof email !== "string" ||
         typeof password !== "string" ||
@@ -501,19 +508,20 @@ app.post("/login", (req, res) => {
 
     const cleanEmail = email.trim().toLowerCase();
 
-    // Step 2: Find the user in the database
     db.query(
-        "SELECT id, name, email, password_hash, role FROM users WHERE email = ?",
+        `SELECT id, name, email, password_hash, role
+         FROM users
+         WHERE email = ?`,
         [cleanEmail],
         (error, results) => {
             if (error) {
                 console.log("LOGIN DATABASE ERROR:", error);
+
                 return res.status(500).json({
                     message: "Login failed. Please try again."
                 });
             }
 
-            // Step 3: Check whether the account exists
             if (results.length === 0) {
                 return res.status(401).json({
                     message: "Invalid email or password."
@@ -522,12 +530,13 @@ app.post("/login", (req, res) => {
 
             const user = results[0];
 
-            // Step 4: Compare the submitted password with its hash
             bcrypt.compare(
                 password,
                 user.password_hash,
                 (compareError, isMatch) => {
                     if (compareError) {
+                        console.log("PASSWORD COMPARISON ERROR:", compareError);
+
                         return res.status(500).json({
                             message: "Login failed. Please try again."
                         });
@@ -539,7 +548,6 @@ app.post("/login", (req, res) => {
                         });
                     }
 
-                    // Step 5: Return safe user details
                     return res.status(200).json({
                         message: "Login successful.",
                         user: {
@@ -554,23 +562,9 @@ app.post("/login", (req, res) => {
         }
     );
 });
- });
-});
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Start the server and listen on port 5000.
-app.listen(PORT,()=>{
-console.log(` server running on port ${PORT} `)
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
-
