@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import "./Login.css";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -47,31 +48,37 @@ function Login() {
         <div className="login-container">
             <h2>Login to Arnold Tech Store</h2>
 
-            <form onSubmit={handleLogin}>
-                <label>Email Address</label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="Enter your email"
-                    required
-                />
+            <form className="login-form" onSubmit={handleLogin}>
+                <div className="login-field">
+                    <label htmlFor="login-email">Email Address</label>
+                    <input
+                        id="login-email"
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        placeholder="Enter your email"
+                        required
+                    />
+                </div>
 
-                <label>Password</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    placeholder="Enter your password"
-                    required
-                />
+                <div className="login-field">
+                    <label htmlFor="login-password">Password</label>
+                    <input
+                        id="login-password"
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        placeholder="Enter your password"
+                        required
+                    />
+                </div>
 
                 <button type="submit" disabled={loading}>
                     {loading ? "Logging in..." : "Login"}
                 </button>
             </form>
 
-            {message && <p>{message}</p>}
+            {message && <p className="login-message" role="status">{message}</p>}
         </div>
     );
 }

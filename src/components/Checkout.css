@@ -1,8 +1,13 @@
 .checkout {
-    max-width: 1120px;
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    max-width: 960px;
     margin: 64px auto 88px;
-    padding: 0 24px;
+    padding: 25px;
+    border-radius: 20px;
+    background: #fff;
     color: #202a27;
+    box-shadow: 0 4px 15px rgb(0 0 0 / 10%);
     text-align: left;
 }
 
@@ -21,10 +26,9 @@
 
 .checkout-header h2 {
     margin: 0;
-    color: #203630;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 38px;
-    font-weight: 500;
+    color: #202a27;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .checkout-header > p:last-child {
@@ -43,13 +47,10 @@
 .checkout-details,
 .checkout-summary {
     min-width: 0;
-    border: 1px solid #e2e6df;
-    border-radius: 8px;
-    background: #fff;
 }
 
 .checkout-details {
-    padding: 30px;
+    padding: 0;
 }
 
 .checkout-details h3,
@@ -81,10 +82,10 @@
     box-sizing: border-box;
     width: 100%;
     min-height: 48px;
-    padding: 0 13px;
-    border: 1px solid #d8ded8;
-    border-radius: 5px;
-    background: #fcfdfb;
+    padding: 15px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
     color: #202a27;
     font: inherit;
     font-size: 14px;
@@ -97,9 +98,8 @@
 }
 
 .checkout-fields input:focus {
-    border-color: #447665;
-    outline: none;
-    box-shadow: 0 0 0 3px rgb(68 118 101 / 14%);
+    border-color: #f59e0b;
+    outline: 3px solid rgb(245 158 11 / 18%);
 }
 
 .checkout-submit {
@@ -111,8 +111,8 @@
     margin-top: 24px;
     padding: 0 17px;
     border: 0;
-    border-radius: 5px;
-    background: #bd5b3b;
+    border-radius: 8px;
+    background: orange;
     color: #fff;
     cursor: pointer;
     font: inherit;
@@ -122,12 +122,11 @@
 }
 
 .checkout-submit:hover:not(:disabled) {
-    transform: translateY(-1px);
-    background: #a8492d;
+    background: #f5b942;
 }
 
 .checkout-submit:focus-visible {
-    outline: 3px solid rgb(189 91 59 / 32%);
+    outline: 3px solid rgb(245 158 11 / 32%);
     outline-offset: 3px;
 }
 
@@ -166,8 +165,9 @@
 }
 
 .checkout-summary {
-    overflow: hidden;
-    background: #f5f7f3;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff8e8;
 }
 
 .checkout-summary-heading {
@@ -278,8 +278,9 @@
 
 @media (max-width: 760px) {
     .checkout {
+        width: calc(100% - 32px);
         margin: 44px auto 60px;
-        padding: 0 16px;
+        padding: 22px 18px;
     }
 
     .checkout-layout {
@@ -293,11 +294,11 @@
 
 @media (max-width: 480px) {
     .checkout-header h2 {
-        font-size: 32px;
+        font-size: 26px;
     }
 
-    .checkout-details {
-        padding: 22px 18px;
+    .checkout-summary {
+        padding: 18px 14px;
     }
 
     .checkout-fields {
