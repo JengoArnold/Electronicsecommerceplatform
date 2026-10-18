@@ -1,4 +1,5 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
+import "./Register.css";
 
 function Register() {
 const[name,setName] = useState("");
@@ -48,40 +49,54 @@ setPassword("");
 
 };
 
-  return (
-    <div className='register-conatiner'>
+    return (
+        <div className="register-container">
       <h2>Create Your Account</h2>
-      <form onSubmit={handleRegister  }>
-<label>FULL NAME</label>
-<input
-type='text'
-value={name}
-onChange={(event)=> setName(event.target.value)}
-placeholder='Enter your full name '
-required
-/>
-<label>EMAIL ADDRESS</label>
-<input
-type='text'
-value={email}
-onChange={(event)=> setEmail(event.target.value)}
-placeholder='Enter your email'
-required
-/>
-<label>PASSWORD</label>
-<input
-type='number'
-value={password}
-onChange={(event)=> setEmail(event.target.value)}
-placeholder='Create password'
-minLength={8}
-maxLength={72}
-required
-/>
-<button type='submit' disabled={loading}  >{loading ?"creating account...":"Register"}</button>
+            <form className="register-form" onSubmit={handleRegister}>
+                <div className="register-field">
+                    <label htmlFor="register-name">Full Name</label>
+                    <input
+                        id="register-name"
+                        type="text"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        placeholder="Enter your full name"
+                        required
+                    />
+                </div>
+
+                <div className="register-field">
+                    <label htmlFor="register-email">Email Address</label>
+                    <input
+                        id="register-email"
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        placeholder="Enter your email"
+                        required
+                    />
+                </div>
+
+                <div className="register-field">
+                    <label htmlFor="register-password">Password</label>
+                    <input
+                        id="register-password"
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        placeholder="Create password"
+                        minLength={8}
+                        maxLength={72}
+                        required
+                    />
+                </div>
+
+                <button type="submit" disabled={loading}>
+                    {loading ? "Creating account..." : "Register"}
+                </button>
       </form>
 
-      {message && <p>{message}</p>}
+            {message && <p className="register-message" role="status">{message}</p>}
     </div>
   )
 }

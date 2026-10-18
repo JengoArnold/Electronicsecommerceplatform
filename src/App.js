@@ -9,7 +9,7 @@ import { useState } from 'react';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
-
+import Register from './components/Register';
 
 function App() {
 
@@ -132,7 +132,9 @@ const closeDetails =()=>{
                 decreaseQuantity={decreaseQuantity}
             />
             <Checkout  cartItems={cartItems} />
+
  <Login />
+ <Register/>
         </div>
     );
 }

@@ -20,6 +20,22 @@
   text-align: left;
 }
 
+.hero-content > * {
+  animation: hero-rise-in 650ms ease-out both;
+}
+
+.hero-content > :nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.hero-content > :nth-child(3) {
+  animation-delay: 220ms;
+}
+
+.hero-content > :nth-child(4) {
+  animation-delay: 300ms;
+}
+
 .hero-content h1 {
   margin: 0 0 1rem;
   font-size: clamp(1.8rem, 5vw, 3.75rem);
@@ -40,13 +56,31 @@
   min-height: 44px;
   margin: 0.35rem 0.5rem 0.35rem 0;
   padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 8px;
+  background: orange;
+  color: #202a27;
   font: inherit;
+  font-weight: 700;
   white-space: normal;
   cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hero-content button:hover {
+  transform: translateY(-2px);
+  background: #f5b942;
+  box-shadow: 0 5px 14px rgb(32 42 39 / 16%);
+}
+
+.hero-content button:focus-visible {
+  outline: 3px solid rgb(245 158 11 / 45%);
+  outline-offset: 3px;
 }
 
 .hero-image {
   min-width: 0;
+  animation: hero-image-in 800ms ease-out both;
 }
 
 .hero-image img {
@@ -56,6 +90,39 @@
   aspect-ratio: 4 / 3;
   border-radius: none;
   object-fit: cover;
+}
+
+@keyframes hero-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-image-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content > *,
+  .hero-image {
+    animation: none;
+  }
+
+  .hero-content button {
+    transition: none;
+  }
 }
 
 @media (max-width: 768px) {
