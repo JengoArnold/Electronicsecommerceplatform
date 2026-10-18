@@ -1,3 +1,5 @@
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 // imports backend into our application
 const express = require("express"); 
 
@@ -547,9 +549,23 @@ app.post("/login", (req, res) => {
                             message: "Invalid email or password."
                         });
                     }
+const token =jwt.sign(
+    {
+        id :user.id,
+        role:user.role
+    },
+    process.env.JWT_SECRET,
+    { expiresIn:"1h"
+
+    }
+);
+
+
+
 
                     return res.status(200).json({
                         message: "Login successful.",
+                        token,
                         user: {
                             id: user.id,
                             name: user.name,
