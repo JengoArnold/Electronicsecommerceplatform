@@ -64,11 +64,11 @@
   font-weight: 700;
   white-space: normal;
   cursor: pointer;
-  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition: background-color 160ms ease, translate 160ms ease, box-shadow 160ms ease;
 }
 
 .hero-content button:hover {
-  transform: translateY(-2px);
+  translate: 0 -2px;
   background: #f5b942;
   box-shadow: 0 5px 14px rgb(32 42 39 / 16%);
 }
@@ -90,6 +90,7 @@
   aspect-ratio: 4 / 3;
   border-radius: none;
   object-fit: cover;
+  animation: hero-image-float 6s ease-in-out 800ms infinite;
 }
 
 @keyframes hero-rise-in {
@@ -114,9 +115,20 @@
   }
 }
 
+@keyframes hero-image-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-content > *,
-  .hero-image {
+  .hero-image,
+  .hero-image img {
     animation: none;
   }
 
