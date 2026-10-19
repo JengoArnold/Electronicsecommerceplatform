@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Hero.css"
 import electronicsImage from "../../assets/images/electronics.jpg";
-import electronicsVideo from "../../assets/Videos/electronics2.mp4";
+import electronicsVideo from "../../assets/Videos/electronics.mp4";
 function Hero() {
   return (
     <section className='hero'>
@@ -12,7 +12,7 @@ function Hero() {
       </video>
 
       <div className='hero-content'> 
-      <h1>Welcome to ArN  Electronics Store</h1>
+      <h1>Welcome to ArN Home Electronics Store</h1>
        
 
       <p>
