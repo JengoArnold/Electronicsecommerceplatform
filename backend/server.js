@@ -62,7 +62,12 @@ if(!authHeader){
   });
 }
 
-
+app.get("/protected", authenticateToken, (req, res) => {
+  res.status(200).json({
+    message: "You accessed a protected route!",
+    user: req.user
+  });
+});
 
 
 
@@ -294,7 +299,7 @@ message :"product deleted sucessfully"
 });
 
 
-app.post("/orders", (req, res) => {
+app.post("/orders", authenticateToken,(req, res) => {
     const {
         customerName,
         customerEmail,
