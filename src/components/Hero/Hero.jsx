@@ -1,12 +1,18 @@
 import React from 'react'
 import "./Hero.css"
 import electronicsImage from "../../assets/images/electronics.jpg";
-
+import electronicsVideo from "../../assets/Videos/electronics2.mp4";
 function Hero() {
   return (
     <section className='hero'>
+ <video autoPlay loop muted playsInline className="hero-video">
+        <source src={electronicsVideo} type="video/mp4" />
+        {/* Add a fallback text for unsupported browsers */}
+        Your browser does not support the video tag.
+      </video>
+
       <div className='hero-content'> 
-      <h1>Welcome to ArN Electronics Store</h1>
+      <h1>Welcome to ArN  Electronics Store</h1>
        
 
       <p>

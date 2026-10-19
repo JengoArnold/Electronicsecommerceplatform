@@ -41,14 +41,16 @@
   font-size: clamp(1.8rem, 5vw, 3.75rem);
   line-height: 1.1;
   overflow-wrap: anywhere;
+  color: #f5b942;
 }
 
 .hero-content p {
   max-width: 38rem;
   margin: 0 0 1.5rem;
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-size: clamp(2rem, 1.8vw, 1.25rem);
   line-height: 1.6;
   overflow-wrap: anywhere;
+  color: aliceblue;
 }
 
 .hero-content button {
@@ -73,6 +75,15 @@
   box-shadow: 0 5px 14px rgb(32 42 39 / 16%);
 }
 
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the area without stretching */
+  z-index: -1; /* Puts the video BEHIND the text */
+}
 .hero-content button:focus-visible {
   outline: 3px solid rgb(245 158 11 / 45%);
   outline-offset: 3px;
