@@ -35,6 +35,20 @@ function Login() {
                 setMessage(data.message || "Login failed.");
                 return;
             }
+// Save the JWT token
+if (!data.token) {
+    setMessage("Login succeeded, but no token was returned.");
+    return;
+}
+
+sessionStorage.setItem("token", data.token);
+
+sessionStorage.setItem(
+    "user",
+    JSON.stringify(data.user)
+);
+
+
 
             setMessage("Welcome, " + data.user.name + "!");
         } catch (error) {

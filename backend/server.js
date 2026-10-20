@@ -247,7 +247,7 @@ db.query(
 // res.json(updatedProduct);
 // });
 
-app.delete("/products/:id",(req,res) => {
+app.delete("/products/:id", authenticateToken,authorizeAdmin,(req,res) => {
 const productId = Number(req.params.id);
 
 db.query(
