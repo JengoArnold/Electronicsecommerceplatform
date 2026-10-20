@@ -56,8 +56,51 @@ sessionStorage.setItem(
         } finally {
             setLoading(false);
         }
+const handleProtectedRequest = async () => {
+    setMessage("Testing protected route...");
+
+    try {
+        const token = sessionStorage.getItem("token");
+
+        if (!token) {
+            setMessage("No token found. Please log in again.");
+            return;
+        }
+
+        const response = await fetch(
+            "http://localhost:5000/protected",
+            {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            setMessage(data.message || "Access denied.");
+            return;
+        }
+
+        setMessage(data.message);
+
+    } catch (error) {
+        setMessage("Could not connect to the server.");
+    }
+};
+
+
+
+
+
     };
 
+
+
+
+    
     return (
         <div className="login-container">
             <h2>Login to Arnold Tech Store</h2>
