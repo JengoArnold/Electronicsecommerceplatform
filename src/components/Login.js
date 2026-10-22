@@ -105,7 +105,7 @@ function Login({ onLoginSuccess, onShowRegister }) {
 
     // 5. Display the login form and test button
     return (
-        <div className="login-container">
+        <div className="login-container" >
             <h2>Login to Arnold Tech Store</h2>
 
             <form className="login-form" onSubmit={handleLogin}>

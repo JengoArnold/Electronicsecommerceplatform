@@ -4,7 +4,7 @@ import electronicsImage from "../../assets/images/electronics.jpg";
 import electronicsVideo from "../../assets/Videos/electronics.mp4";
 function Hero() {
   return (
-    <section className='hero'>
+    <section className='hero' id='home'>
  <video autoPlay loop muted playsInline className="hero-video">
         <source src={electronicsVideo} type="video/mp4" />
         {/* Add a fallback text for unsupported browsers */}
