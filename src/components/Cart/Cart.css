@@ -25,37 +25,14 @@
     flex:1;
 }
 .quantity-controls button{
-    width: 35px;
-    height: 35px;
- background-color: orange;
- border: none ;
- cursor: pointer;
- font-size: 17px;
-
-}
-.quantity-controls button:hover {
-  background-color: #f27b7b;
-  
+        width: 44px;
+        padding: 0;
 }
 .quantity-controls{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap:20px
-}
-.cart-remove button{
-    background-color: orange;
- border: none ;
- cursor: pointer;
- border-radius: 12px;
- font-size: 17px;
- padding: 12px 12px
- 
- 
-}
-.cart-remove button:hover {
-  background-color: #f27b7b;
-  
 }
 .total-cart {
 font-size: bold;

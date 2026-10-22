@@ -5,6 +5,7 @@ import desk from "../../assets/images/desk.jpg";
 import fridges from "../../assets/images/fridges.jpg";
 import gamingPC from "../../assets/images/gamingPC.jpg";
 import iphones from "../../assets/images/iphones.jpg";
+import electronics from "../../assets/images/electronics.jpg";
 
 import React,{useEffect,useState} from 'react';
 // Connect backend product IDs to frontend images
@@ -254,27 +255,34 @@ function deleteProduct(productId) {
     {filteredProducts.length === 0 ? (
         <p>No products found.</p>
     ) : (
-        filteredProducts.map((item) => (
+        filteredProducts.map((item) => {
+          const product = {
+            ...item,
+            Image: item.Image || item.image || item.image_url || productImages[item.id] || electronics
+          };
+
+          return (
             <div className="product-item" key={item.id}>
-                <ProductCard
-                    name={item.name}
-                    price={item.price}
-                    rating={item.rating}
-                    Image={productImages[item.id]}
-                    addToCart={addToCart}
-                    product={item}
-                    selectProduct={selectProduct}
-                />
+              <ProductCard
+                name={product.name}
+                price={product.price}
+                rating={product.rating}
+                Image={product.Image}
+                addToCart={addToCart}
+                product={product}
+                selectProduct={selectProduct}
+              />
 
-                <button onClick={() => setEditingProduct(item)}>
-                    Edit Product
-                </button>
+              <button onClick={() => setEditingProduct(item)}>
+                Edit Product
+              </button>
 
-                <button onClick={() => deleteProduct(item.id)}>
-                    Delete Product
-                </button>
+              <button onClick={() => deleteProduct(item.id)}>
+                Delete Product
+              </button>
             </div>
-        ))
+          );
+        })
     )}
 </div>
 

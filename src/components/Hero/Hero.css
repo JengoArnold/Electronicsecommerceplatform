@@ -55,24 +55,8 @@
 
 .hero-content button {
   max-width: 100%;
-  min-height: 44px;
   margin: 0.35rem 0.5rem 0.35rem 0;
-  padding: 0.75rem 1.25rem;
-  border: 0;
-  border-radius: 8px;
-  background: orange;
-  color: #202a27;
-  font: inherit;
-  font-weight: 700;
   white-space: normal;
-  cursor: pointer;
-  transition: background-color 160ms ease, translate 160ms ease, box-shadow 160ms ease;
-}
-
-.hero-content button:hover {
-  translate: 0 -2px;
-  background: #f5b942;
-  box-shadow: 0 5px 14px rgb(32 42 39 / 16%);
 }
 
 .hero-video {
@@ -84,11 +68,6 @@
   object-fit: cover; /* Ensures the video covers the area without stretching */
   z-index: -1; /* Puts the video BEHIND the text */
 }
-.hero-content button:focus-visible {
-  outline: 3px solid rgb(245 158 11 / 45%);
-  outline-offset: 3px;
-}
-
 .hero-image {
   min-width: 0;
   animation: hero-image-in 800ms ease-out both;
@@ -143,9 +122,6 @@
     animation: none;
   }
 
-  .hero-content button {
-    transition: none;
-  }
 }
 
 @media (max-width: 768px) {

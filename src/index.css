@@ -7,6 +7,60 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button,
+input[type="submit"] {
+  box-sizing: border-box;
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #d88b18;
+  border-radius: 8px;
+  background: #f59e0b;
+  color: #202a27;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+button:hover:not(:disabled),
+input[type="submit"]:hover:not(:disabled) {
+  background: #e58a06;
+  box-shadow: 0 4px 10px rgb(32 42 39 / 14%);
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+input[type="submit"]:focus-visible {
+  outline: 3px solid rgb(245 158 11 / 35%);
+  outline-offset: 3px;
+}
+
+button:disabled,
+input[type="submit"]:disabled {
+  background: #d5d9d6;
+  border-color: #c3cac5;
+  color: #68736e;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button,
+  input[type="submit"] {
+    transition: none;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
