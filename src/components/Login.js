@@ -102,7 +102,13 @@ function Login({ onLoginSuccess, onShowRegister }) {
             setMessage("Could not connect to the server.");
         }
     };
-
+    // Add this function
+    const handleLogout = () => {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+        setIsLoggedIn(false);
+        setMessage("You have been logged out.");
+    };
     // 5. Display the login form and test button
     return (
         <div className="login-container" >
@@ -162,6 +168,25 @@ function Login({ onLoginSuccess, onShowRegister }) {
                 >
                     Test Protected Route
                 </button>
+            )}
+                        {isLoggedIn && (
+                <>
+                    <button
+                        type="button"
+                        onClick={handleProtectedRequest}
+                    >
+                        Test Protected Route
+                    </button>
+                    
+                    {/* ADD THIS LOGOUT BUTTON */}
+                    <button 
+                        type="button" 
+                        onClick={handleLogout}
+                        style={{ backgroundColor: '#d9534f', color: 'white', marginTop: '10px' }}
+                    >
+                        Log Out
+                    </button>
+                </>
             )}
 
             {message && (

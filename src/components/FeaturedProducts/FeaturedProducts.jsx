@@ -1,4 +1,3 @@
-
 import "./FeaturedProducts.css";
 import ProductCard from "../ProductCard/ProductCard";
 import desk from "../../assets/images/desk.jpg";
@@ -7,7 +6,8 @@ import gamingPC from "../../assets/images/gamingPC.jpg";
 import iphones from "../../assets/images/iphones.jpg";
 import electronics from "../../assets/images/electronics.jpg";
 
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
+
 // Connect backend product IDs to frontend images
 const productImages = {
     1: gamingPC,
@@ -16,400 +16,316 @@ const productImages = {
     4: fridges
 };
 
-function FeaturedProducts({addToCart , selectProduct}) {
+function FeaturedProducts({ addToCart, selectProduct }) {
 
   // gets products get from backend 
-const [Product, setProduct] = useState([]);
-const [searchTerm,setSearchTerm]=useState("");
+  const [Product, setProduct] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  // Check if the logged-in user is an admin
+  const loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+  const isAdmin = loggedInUser && loggedInUser.role === "admin";
 
-const filteredProducts = Product.filter((item) =>
-item.name.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const filteredProducts = Product.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-//error when the fetch fails 
-const[error,setError]=useState("");
+  // error when the fetch fails 
+  const [error, setError] = useState("");
 
-//Tracks if the products are still loading 
-const[loading,setLoading]=useState(true);
-const[editingProduct,setEditingProduct]=useState(null);
+  // Tracks if the products are still loading 
+  const [loading, setLoading] = useState(true);
+  const [editingProduct, setEditingProduct] = useState(null);
 
-const[createError,setCreateError] = useState("");
-//a small temporary object that will hold whatever a user types in the form 
-const[newProduct,setNewProduct]= useState({
-  name:"",
-  price:"",
-  rating:""
-});
-// Get the user from localStorage when the page loads
-const loggedInUser = JSON.parse(localStorage.getItem("user"));
-const isAdmin = loggedInUser && loggedInUser.role === "admin";
+  const [createError, setCreateError] = useState("");
+  // a small temporary object that will hold whatever a user types in the form 
+  const [newProduct, setNewProduct] = useState({
+    name: "",
+    price: "",
+    rating: ""
+  });
 
-useEffect(()=>{
+  useEffect(() => {
+    fetch("http://localhost:5000/products")
+      .then(response => response.json())
+      .then(data => {
+        console.log("DATA RECIEVED:", data);
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log("FETCH ERROR:", error);
+        setError("unable to fetch data");
+        setLoading(false);
+      });
+  }, []);
 
-fetch("http://localhost:5000/products")
-.then(response=>response.json())
-.then(data=>{
-  console.log("DATA RECIEVED:",data);
-  setProduct(data);
-  setLoading(false);
-})
+  function addProduct(event) {
+    event.preventDefault();
+    
+    // form Validation
+    if (!newProduct.name || !newProduct.price || !newProduct.rating) {
+      setCreateError("Please fill in all fields.");
+      return;
+    }
 
-.catch(error => {
-  console.log("FETCH ERROR:",error);
-  setError("unable to fetch data");
-  setLoading(false);
-});
-
-},[]);
-
-
-function addProduct(event){
-  event.preventDefault();
-//Incase u dont want to send empty fields in our form and irrelevant data to the data base,this stops the fetch request(form Validation)
-if (
-    !newProduct.name ||
-    !newProduct.price ||
-    !newProduct.rating
-) {
-    setCreateError("Please fill in all fields.");
-    return;
-}
-
-
-  //Post request to my express API
-  fetch("http://localhost:5000/products",{
-method:"POST",
-headers:{
-  "Content-Type" : "application/json"
-     },
-
-body:JSON.stringify({
- 
-  name: newProduct.name,
-  price: Number(newProduct.price),
-  rating: Number(newProduct.rating)
-         })
-           })
-   //This coverts the data sent from the backend from JSON to javascript Object
-     .then(response => response.json())
-     //take the product the backend sent back and put it into data
-     .then(data =>{
-      console.log("PRODUCT CREATE:", data);
-      
-//For the product to immediately appear in mySQL and react app
-setProduct(prevProducts =>[
-  //keep the existing products
-  ...prevProducts,
-  //data means add the newly created product
-  data
-]);
-//Clears the form for the next product
-setNewProduct({
-  name:"",
-  price:"",
-  rating:""
-
-});
-     })
-     //incase the new product has failed java script can display the error 
-     .catch(error =>{
-console.log("CREATE ERROR:", error);
-setCreateError(error.message);
-     });
-     
-}
-
-//Creating an Update Product with React
-function updateProduct(product){
-
-  console.log("UPDATE BUTTON CLICKED:",product);
-
-  const updateProduct ={
-    name:product.name,
-    price: Number(product.price) +100,
-    rating: Number(product.rating)
-  };
-
-fetch(`http://localhost:5000/products/${product.id}`,{
-  method:"PUT",
-  headers:{
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(updateProduct)
-})
-.then(response =>{
-  if(!response.ok){
-    throw new Error("Product colud not be Updated");
-
+    // Post request to my express API
+    fetch("http://localhost:5000/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}` // Token added
+      },
+      body: JSON.stringify({
+        name: newProduct.name,
+        price: Number(newProduct.price),
+        rating: Number(newProduct.rating)
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Only admins can add products");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("PRODUCT CREATE:", data);
+        // For the product to immediately appear in mySQL and react app
+        setProduct(prevProducts => [
+          ...prevProducts,
+          data
+        ]);
+        // Clears the form for the next product
+        setNewProduct({
+          name: "",
+          price: "",
+          rating: ""
+        });
+        setCreateError(""); // Clear errors on success
+      })
+      .catch(error => {
+        console.log("CREATE ERROR:", error);
+        setCreateError(error.message);
+      });
   }
-  return response.json();
-})
-.then(data =>{
-  console.log("PRODUCT UPDATED:", data);
-setProduct(prevProducts => 
-  prevProducts.map(item =>
-    item.id === data.id ? data : item 
-  )
-);
 
-})
-.catch(error => {
-  console.log("UPDATE ERROR:" ,error);
-});
-
-}
-
-
-function saveEditedProduct(event) {
+  function saveEditedProduct(event) {
     event.preventDefault();
 
     fetch(`http://localhost:5000/products/${editingProduct.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: editingProduct.name,
-            price: Number(editingProduct.price),
-            rating: Number(editingProduct.rating)
-        })
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${sessionStorage.getItem("token")}` // Token added
+      },
+      body: JSON.stringify({
+        name: editingProduct.name,
+        price: Number(editingProduct.price),
+        rating: Number(editingProduct.rating)
+      })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Product could not be updated");
-            }
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Product could not be updated");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("PRODUCT UPDATED:", data);
+        setProduct(prevProducts =>
+          prevProducts.map(item =>
+            item.id === editingProduct.id
+              ? {
+                  ...editingProduct,
+                  price: Number(editingProduct.price),
+                  rating: Number(editingProduct.rating)
+                }
+              : item
+          )
+        );
+        setEditingProduct(null);
+      })
+      .catch(error => {
+        console.log("UPDATE ERROR:", error);
+        alert(error.message);
+      });
+  }
 
-            return response.json();
-        })
-        .then(data => {
-            console.log("PRODUCT UPDATED:", data);
-
-            setProduct(prevProducts =>
-                prevProducts.map(item =>
-                    item.id === editingProduct.id
-                        ? {
-                            ...editingProduct,
-                            price: Number(editingProduct.price),
-                            rating: Number(editingProduct.rating)
-                        }
-                        : item
-                )
-            );
-
-            setEditingProduct(null);
-        })
-        .catch(error => {
-            console.log("UPDATE ERROR:", error);
-        });
-}
-
-
-
-
-
-
-
-
-
-// Delete
-function deleteProduct(productId) {
+  // Delete
+  function deleteProduct(productId) {
+    const token = sessionStorage.getItem("token");
 
     fetch(`http://localhost:5000/products/${productId}`, {
-        method: "DELETE"
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}` // Token added
+      }
     })
-        .then(response => {
-
-            if (!response.ok) {
-                throw new Error("Product could not be deleted");
-            }
-
-            return response.json();
-        })
-        .then(data => {
-
-            console.log("PRODUCT DELETED:", data);
-
-            setProduct(prevProducts =>
-                prevProducts.filter(item => item.id !== productId)
-            );
-        })
-        .catch(error => {
-            console.log("DELETE ERROR:", error);
-        });
-}
-
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Product could not be deleted");
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("PRODUCT DELETED:", data);
+        setProduct(prevProducts =>
+          prevProducts.filter(item => item.id !== productId)
+        );
+      })
+      .catch(error => {
+        console.log("DELETE ERROR:", error);
+        alert(error.message);
+      });
+  }
 
   return (
     <div className="Featured-Products">
-      <h2>FeaturedProducts </h2>
-     <input
-     type="text"
-     placeholder="Search products"
-     value={searchTerm}
-     onChange={(e) => setSearchTerm(e.target.value)}
-    
-     /> 
+      <h2>FeaturedProducts</h2>
+      <input
+        type="text"
+        placeholder="Search products"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
 
-{createError && <p>{createError}</p>}
+      {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
       {error && <p>{error}</p>}
-  
-<div className="Product-grid">
-    {filteredProducts.length === 0 ? (
-        <p>No products found.</p>
-    ) : (
-        filteredProducts.map((item) => {
-          const product = {
-            ...item,
-            Image: item.Image || item.image || item.image_url || productImages[item.id] || electronics
-          };
 
-          return (
-            <div className="product-item" key={item.id}>
-              <ProductCard
-                name={product.name}
-                price={product.price}
-                rating={product.rating}
-                Image={product.Image}
-                addToCart={addToCart}
-                product={product}
-                selectProduct={selectProduct}
-              />
+      <div className="Product-grid">
+        {filteredProducts.length === 0 ? (
+          <p>No products found.</p>
+        ) : (
+          filteredProducts.map((item) => {
+            const product = {
+              ...item,
+              Image: item.Image || item.image || item.image_url || productImages[item.id] || electronics
+            };
 
+            return (
+              <div className="product-item" key={item.id}>
+                <ProductCard
+                  name={product.name}
+                  price={product.price}
+                  rating={product.rating}
+                  Image={product.Image}
+                  addToCart={addToCart}
+                  product={product}
+                  selectProduct={selectProduct}
+                />
 
-{isAdmin && (
-<> 
-<form className="add-product-form" onSubmit={addProduct}> 
-  <h2>Add Product</h2>
-
- <input
- type="text"
- placeholder="Product name"
- value={newProduct.name}
- //onChange will run wenever a user cahnges whats inside the input
- onChange={(e)=>
-  setNewProduct({
-    ...newProduct,
-    name:e.target.value
-  })
- }
- />
- <input
- type="number"
- placeholder="Price"
- value={newProduct.price}
- onChange={(e)=>
-  setNewProduct({
-    ...newProduct,
-    price: e.target.value
-  })
- }
- 
- />
- <input
-  type="number"
-  step="0.1"
-  placeholder="Rating"
-  value={newProduct.rating}
-  onChange={(e) =>
-    setNewProduct({
-      ...newProduct,
-      rating: e.target.value  
-    })
-  }
-/>
-
-<button type="submit">Add product</button>
-
- </form>
-
-
-              <button onClick={() => setEditingProduct(item)}>
-                Edit Product
-              </button>
-
-              <button onClick={() => deleteProduct(item.id)}>
-                Delete Product
-              </button>
- </>
-
-)}
-            </div>
-          );
-        })
-    )}
-</div>
-
-
-
-
-  
-{
-  editingProduct &&(
-    <form className="add-product-form"  onSubmit={saveEditedProduct} >
-<h2>Edit Product</h2>
-<input
-type="text"
-placeholder="Product name"
-value={editingProduct.name}
-onChange={(e)=>
-  setEditingProduct({
-    ...editingProduct,
-    name: e.target.value 
-  })
-}
-/>
-<input
-type="number"
-placeholder="Price"
-value={editingProduct.price}
-onChange={(e)=>
-  setEditingProduct({
-    ...editingProduct,
-    price:e.target.value
-  })
-}
-/>
-<input
-type="number"
-step="0.1"
-placeholder="rating"
-value={editingProduct.rating}
-onChange={(e)=>
-  setEditingProduct({
- ...editingProduct,
- rating:e.target.value
-  })
-}
-
-/>
- <button type="submit">Save Changes</button>
-
-        <button
-            type="button"
-            onClick={() => setEditingProduct(null)}
-        >
-            Cancel
-        </button>
-
-    </form>
-  )
-}
-
-
-
-
- {createError &&(
-  <p className="form-error">{createError}</p>
- )}
- 
-
-
-
+                {/* ONLY ADMINS SEE THESE BUTTONS */}
+                {isAdmin && (
+                  <>
+                    <button onClick={() => setEditingProduct(item)}>
+                      Edit Product
+                    </button>
+                    <button onClick={() => deleteProduct(item.id)}>
+                      Delete Product
+                    </button>
+                  </>
+                )}
+                
+              </div>
+            );
+          })
+        )}
       </div>
 
-    
+      {/* EDIT PRODUCT FORM */}
+      {editingProduct && isAdmin && (
+        <form className="add-product-form" onSubmit={saveEditedProduct}>
+          <h2>Edit Product</h2>
+          <input
+            type="text"
+            placeholder="Product name"
+            value={editingProduct.name}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                name: e.target.value
+              })
+            }
+          />
+          <input
+            type="number"
+            placeholder="Price"
+            value={editingProduct.price}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                price: e.target.value
+              })
+            }
+          />
+          <input
+            type="number"
+            step="0.1"
+            placeholder="rating"
+            value={editingProduct.rating}
+            onChange={(e) =>
+              setEditingProduct({
+                ...editingProduct,
+                rating: e.target.value
+              })
+            }
+          />
+          <button type="submit">Save Changes</button>
+          <button type="button" onClick={() => setEditingProduct(null)}>
+            Cancel
+          </button>
+        </form>
+      )}
+
+      {/* ADD PRODUCT FORM (Moved outside the map loop) */}
+      {isAdmin && (
+        <form className="add-product-form" onSubmit={addProduct}>
+          <h2>Add Product</h2>
+          <input
+            type="text"
+            placeholder="Product name"
+            value={newProduct.name}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                name: e.target.value
+              })
+            }
+          />
+          <input
+            type="number"
+            placeholder="Price"
+            value={newProduct.price}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                price: e.target.value
+              })
+            }
+          />
+          <input
+            type="number"
+            step="0.1"
+            placeholder="Rating"
+            value={newProduct.rating}
+            onChange={(e) =>
+              setNewProduct({
+                ...newProduct,
+                rating: e.target.value
+              })
+            }
+          />
+          <button type="submit">Add product</button>
+        </form>
+      )}
+
+      {createError && (
+        <p className="form-error">{createError}</p>
+      )}
+
+    </div>
   );
 }
 
-export default FeaturedProducts
+export default FeaturedProducts;
