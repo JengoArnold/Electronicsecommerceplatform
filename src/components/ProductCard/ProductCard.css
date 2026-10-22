@@ -1,6 +1,7 @@
 .ProductCard{
-    width: 260px;
-    border-radius: 1px solid #add;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 300px;
     border-radius: 10px;
     text-align: center;
     padding: 20px;
@@ -9,13 +10,31 @@
 .ProductCard img{
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 10px;
 }
+
+.ProductCard h1 {
+    font-size: clamp(20px, 2.5vw, 28px);
+    overflow-wrap: anywhere;
+}
+
+.ProductCard button {
+    width: 100%;
+    margin-top: 8px;
+}
+
 .ProductCard:hover{
-
     transform:translateY(-8px);
-
     box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
 
+@media (prefers-reduced-motion: reduce) {
+    .ProductCard {
+        transition: none;
+    }
+
+    .ProductCard:hover {
+        transform: none;
+    }
 }

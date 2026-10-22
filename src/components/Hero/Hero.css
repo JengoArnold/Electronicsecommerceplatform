@@ -38,6 +38,7 @@
 
 .hero-content h1 {
   margin: 0 0 1rem;
+  font-family: "Palatino Linotype", "Book Antiqua", Georgia, serif;
   font-size: clamp(1.8rem, 5vw, 3.75rem);
   line-height: 1.1;
   overflow-wrap: anywhere;

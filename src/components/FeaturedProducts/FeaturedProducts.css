@@ -1,45 +1,77 @@
-.featured-products{
-    padding: 60px 20px;
-    align-items: center;
+.Featured-Products {
+    padding: clamp(32px, 6vw, 60px) 20px;
+    text-align: center;
 }
+
+.Featured-Products > input {
+    box-sizing: border-box;
+    width: min(100%, 500px);
+    min-height: 44px;
+    margin: 8px auto;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+}
+
 .Product-grid{
     display: flex;
     justify-content: center;
     gap: 20px;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     margin-top: 40px;
 }
+
+.product-item {
+    display: flex;
+    width: min(100%, 300px);
+    flex-direction: column;
+    gap: 8px;
+}
+
 .add-product-form{
-display: flex;
-flex-direction: column;
-gap:20px;
-width: 90%;
-padding: 25px;
-max-width: 500px;
-border-radius: 20px;
- box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
- background-color: #ffffff;
-   margin: 30px auto;
+    display: flex;
+    width: min(calc(100% - 32px), 500px);
+    flex-direction: column;
+    gap: 20px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin: 30px auto;
 }
 .add-product-form input{
-    width: 90%;
-    padding:15px 12px ;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px;
     border-radius: 8px;
-      border: 1px solid #ccc;
-      outline: none;
-      font-size: 16px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
 }
 .add-product-form button{
     width: 100%;
 }
 .form-error {
-    width: 90%;
-    max-width: 500px;
+    box-sizing: border-box;
+    width: min(calc(100% - 32px), 500px);
     margin: 10px auto;
     padding: 10px;
     background-color: #ffe5e5;
     color: #d00000;
     border-radius: 8px;
     text-align: center;
+}
+
+@media (max-width: 480px) {
+    .Featured-Products {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .add-product-form {
+        padding: 20px 16px;
+    }
 }
