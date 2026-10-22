@@ -5,6 +5,16 @@ import { Link } from 'react-router-dom';
 function Navbar({ cartCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // 1. Move these OUTSIDE of closeMenu so the return statement can see them
+  const token = sessionStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user"));
+
+  const handleLogout = () => {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("user");
+      window.location.href = "/login"; // Sends user back to login page
+  };
+
   function closeMenu() {
     setMenuOpen(false);
   }
@@ -35,8 +45,20 @@ function Navbar({ cartCount }) {
         <li><Link to="/cart" onClick={closeMenu}>🛒Cart ({cartCount})</Link></li>
         <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
       </ul>
+
+      {/* 2. The Login/Logout section */}
+      {token ? (
+          <div className="user-info">
+            
+              <button onClick={handleLogout} className="logout-btn">
+                Log Out
+              </button>
+          </div>
+      ) : (
+          <Link to="/login" className="login-link">Login</Link>
+      )}
     </nav>
   )
 }
 
-export default Navbar
+export default Navbar;
