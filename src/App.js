@@ -1,18 +1,22 @@
-import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import Hero from './components/Hero/Hero';
+
+import "./App.css";
+import React, { useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+
+import Navbar from "./components/Navbar/Navbar";
+import Hero from "./components/Hero/Hero";
 import FeaturedProducts from "./components/FeaturedProducts/FeaturedProducts";
-import Categories from './components/Categories/Categories';
+import Categories from "./components/Categories/Categories";
 import Cart from "./components/Cart/Cart";
-import React from 'react';
-import { useState } from 'react';
-import ProductDetails from './components/ProductDetails/ProductDetails';
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Checkout from "./components/Checkout";
 import Login from "./components/Login";
-import Register from './components/Register';
+import Register from "./components/Register";
+
 
 function App() {
-
+const Navigate = useNavigate();
+    
     const [cartCount, setCartcount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const[selectedProduct, setSelectedProduct]= useState(null);
@@ -121,40 +125,53 @@ function removeFromCart(productId) {
         setCartItems(updatedCart);
     }
 
-
     return (
-        <div className="App">
+  
+    <div className="App">
+        <Navbar cartCount={cartCount} />
 
-            <Navbar cartCount={cartCount} />
+        <Routes>
+            {/* Home route — only the home-page content */}
+            <Route
+                path="/"
+                element={
+                    <>
+                        <Hero />
+                        <FeaturedProducts
+                            addToCart={addToCart}
+                            selectProduct={selectProduct}
+                        />
 
-            <Hero />
+                        {selectedProduct && (
+                            <ProductDetails
+                                product={selectedProduct}
+                                addToCart={addToCart}
+                                closeDetails={closeDetails}
+                            />
+                        )}
 
-            <FeaturedProducts
-                addToCart={addToCart}
-                selectProduct={selectProduct}
+                        <Categories />
+
+                        <Cart
+                            cartItems={cartItems}
+                            removeFromCart={removeFromCart}
+                            increaseQuantity={increaseQuantity}
+                            decreaseQuantity={decreaseQuantity}
+                        />
+                    </>
+                }
             />
 
-            {/* Telling App.jsx to display the ProductDetails component */}
-            {selectedProduct && (
-    <ProductDetails
-        product={selectedProduct}
-        addToCart={addToCart}
-        closeDetails={closeDetails}
-    />
-)}
-
-            <Categories />
-
-            <Cart
-                cartItems={cartItems}
-                removeFromCart={removeFromCart}
-                increaseQuantity={increaseQuantity}
-                decreaseQuantity={decreaseQuantity}
+            {/* Sibling routes — direct children of <Routes> */}
+            <Route
+                path="/checkout"
+                element={<Checkout cartItems={cartItems} />}
             />
-            <Checkout  cartItems={cartItems} />
 
-        </div>
-    );
+            <Route path="*" element={<h2>Page not found</h2>} />
+        </Routes>
+    </div>
+);
 }
 
 
