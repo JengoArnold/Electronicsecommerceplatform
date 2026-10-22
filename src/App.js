@@ -16,6 +16,10 @@ function App() {
     const [cartCount, setCartcount] = useState(0);
     const [cartItems, setCartItems] = useState([]);
     const[selectedProduct, setSelectedProduct]= useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(
+        Boolean(sessionStorage.getItem("token"))
+    );
+    const [showRegister, setShowRegister] = useState(false);
 
 
     function addToCart(product) {
@@ -50,9 +54,25 @@ const closeDetails =()=>{
 
 
 
+if (!isLoggedIn) {
+    return (
+        <div className="App">
+            <main className="login-page">
+                {showRegister ? (
+                    <Register onBackToLogin={() => setShowRegister(false)} />
+                ) : (
+                    <Login
+                        onLoginSuccess={() => setIsLoggedIn(true)}
+                        onShowRegister={() => setShowRegister(true)}
+                    />
+                )}
+            </main>
+        </div>
+    );
+}
 
-    // REMOVE PRODUCT
-    function removeFromCart(productId) {
+// REMOVE PRODUCT
+function removeFromCart(productId) {
 
         const updatedCart = cartItems.filter(
             item => item.id !== productId
@@ -133,8 +153,6 @@ const closeDetails =()=>{
             />
             <Checkout  cartItems={cartItems} />
 
- <Login />
- <Register/>
         </div>
     );
 }

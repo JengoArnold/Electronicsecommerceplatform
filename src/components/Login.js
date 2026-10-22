@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 
-function Login() {
+function Login({ onLoginSuccess, onShowRegister }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -57,6 +57,7 @@ function Login() {
 
             setIsLoggedIn(true);
             setMessage("Welcome, " + data.user.name + "!");
+            onLoginSuccess();
 
         } catch (error) {
             setMessage("Could not connect to the server.");
@@ -146,6 +147,13 @@ function Login() {
                     {loading ? "Logging in..." : "Login"}
                 </button>
             </form>
+
+            <p className="login-register-prompt">
+                New to Arnold Tech Store?
+            </p>
+            <button type="button" onClick={onShowRegister}>
+                Create an account
+            </button>
 
             {isLoggedIn && (
                 <button

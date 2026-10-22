@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./Register.css";
 
-function Register() {
+function Register({ onBackToLogin }) {
 const[name,setName] = useState("");
 const[email,setEmail] = useState("");
 const[message,setMessage] =useState("");
@@ -95,6 +95,10 @@ setPassword("");
                     {loading ? "Creating account..." : "Register"}
                 </button>
       </form>
+
+            <button type="button" onClick={onBackToLogin}>
+                Back to login
+            </button>
 
             {message && <p className="register-message" role="status">{message}</p>}
     </div>

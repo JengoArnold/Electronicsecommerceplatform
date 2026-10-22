@@ -1,8 +1,17 @@
+.login-page {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100svh;
+    place-items: center;
+    padding: 24px 16px;
+    background: linear-gradient(135deg, #142c27, #315b4e);
+}
+
 .login-container {
     box-sizing: border-box;
     width: calc(100% - 40px);
     max-width: 500px;
-    margin: 30px auto;
+    margin: 0 auto;
     padding: 25px;
     border-radius: 20px;
     background: #fff;
@@ -13,6 +22,12 @@
     margin: 0 0 24px;
     color: #202a27;
     font-size: 24px;
+}
+
+.login-register-prompt {
+    margin: 20px 0 8px;
+    color: #384640;
+    font-size: 14px;
 }
 
 .login-form {
@@ -58,6 +73,7 @@
 
 @media (max-width: 480px) {
     .login-container {
+        width: 100%;
         padding: 22px 18px;
     }
 }
