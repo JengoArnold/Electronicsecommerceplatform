@@ -300,7 +300,7 @@ app.post("/orders", authenticateToken,(req, res) => {
         customerAddress,
         cartItems
     } = req.body;
-
+const userId =req.user.id;
     // 1. Validate the customer's details.
     if (
         !customerName?.trim() ||
@@ -396,6 +396,7 @@ app.post("/orders", authenticateToken,(req, res) => {
                      customer_address, total_amount)
                     VALUES (?, ?, ?, ?, ?)`,
                     [
+                        userId,
                         customerName.trim(),
                         customerEmail.trim(),
                         customerPhone.trim(),
