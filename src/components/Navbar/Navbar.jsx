@@ -32,7 +32,7 @@ function Navbar({ cartCount }) {
       >
         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
         <li><Link to="/shop" onClick={closeMenu}>Shop</Link></li>
-        <li><Link to="/cart" onClick={closeMenu}>Cart ({cartCount})</Link></li>
+        <li><Link to="/cart" onClick={closeMenu}>🛒Cart ({cartCount})</Link></li>
         <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
       </ul>
     </nav>

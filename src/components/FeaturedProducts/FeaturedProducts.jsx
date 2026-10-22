@@ -40,6 +40,9 @@ const[newProduct,setNewProduct]= useState({
   price:"",
   rating:""
 });
+// Get the user from localStorage when the page loads
+const loggedInUser = JSON.parse(localStorage.getItem("user"));
+const isAdmin = loggedInUser && loggedInUser.role === "admin";
 
 useEffect(()=>{
 
@@ -273,6 +276,54 @@ function deleteProduct(productId) {
                 selectProduct={selectProduct}
               />
 
+
+{isAdmin && (
+<> 
+<form className="add-product-form" onSubmit={addProduct}> 
+  <h2>Add Product</h2>
+
+ <input
+ type="text"
+ placeholder="Product name"
+ value={newProduct.name}
+ //onChange will run wenever a user cahnges whats inside the input
+ onChange={(e)=>
+  setNewProduct({
+    ...newProduct,
+    name:e.target.value
+  })
+ }
+ />
+ <input
+ type="number"
+ placeholder="Price"
+ value={newProduct.price}
+ onChange={(e)=>
+  setNewProduct({
+    ...newProduct,
+    price: e.target.value
+  })
+ }
+ 
+ />
+ <input
+  type="number"
+  step="0.1"
+  placeholder="Rating"
+  value={newProduct.rating}
+  onChange={(e) =>
+    setNewProduct({
+      ...newProduct,
+      rating: e.target.value  
+    })
+  }
+/>
+
+<button type="submit">Add product</button>
+
+ </form>
+
+
               <button onClick={() => setEditingProduct(item)}>
                 Edit Product
               </button>
@@ -280,6 +331,9 @@ function deleteProduct(productId) {
               <button onClick={() => deleteProduct(item.id)}>
                 Delete Product
               </button>
+ </>
+
+)}
             </div>
           );
         })
@@ -348,50 +402,7 @@ onChange={(e)=>
  {createError &&(
   <p className="form-error">{createError}</p>
  )}
- <form className="add-product-form" onSubmit={addProduct}> 
-  <h2>Add Product</h2>
-
- <input
- type="text"
- placeholder="Product name"
- value={newProduct.name}
- //onChange will run wenever a user cahnges whats inside the input
- onChange={(e)=>
-  setNewProduct({
-    ...newProduct,
-    name:e.target.value
-  })
- }
- />
- <input
- type="number"
- placeholder="Price"
- value={newProduct.price}
- onChange={(e)=>
-  setNewProduct({
-    ...newProduct,
-    price: e.target.value
-  })
- }
  
- />
- <input
-  type="number"
-  step="0.1"
-  placeholder="Rating"
-  value={newProduct.rating}
-  onChange={(e) =>
-    setNewProduct({
-      ...newProduct,
-      rating: e.target.value  
-    })
-  }
-/>
-
-<button type="submit">Add product</button>
-
- </form>
-
 
 
 
