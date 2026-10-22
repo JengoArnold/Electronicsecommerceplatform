@@ -24,6 +24,13 @@
     font-size: 24px;
 }
 
+.contact-intro {
+    margin: -12px 0 22px;
+    color: #384640;
+    font-size: 14px;
+    text-align: left;
+}
+
 .login-register-prompt {
     margin: 20px 0 8px;
     color: #384640;
@@ -48,7 +55,8 @@
     font-weight: 600;
 }
 
-.login-field input {
+.login-field input,
+.login-field textarea {
     box-sizing: border-box;
     width: 100%;
     min-height: 48px;
@@ -60,7 +68,13 @@
     font-size: 16px;
 }
 
-.login-field input:focus {
+.login-field textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.login-field input:focus,
+.login-field textarea:focus {
     border-color: #f59e0b;
     outline: 3px solid rgb(245 158 11 / 18%);
 }
