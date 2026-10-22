@@ -127,7 +127,8 @@ app.get("/products", (req, res) => {
     });
 });
 
-app.post('/products',(req,res)=>{
+app.post('/products',  authenticateToken,
+    authorizeAdmin,(req,res)=>{
     const newProduct = req.body;
 // Take the product that React sent me and store it in a JavaScript variable called newProduct.
     
@@ -176,7 +177,8 @@ if(err){
     );
 });
 
-app.put("/products/:id",(req,res)=>{
+app.put("/products/:id",  authenticateToken,
+    authorizeAdmin,(req,res)=>{
 
     const productid = Number(req.params.id);
     const updatedProduct = req.body;
