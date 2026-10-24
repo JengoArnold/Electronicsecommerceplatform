@@ -155,6 +155,7 @@ return res.status(400).json({
 db.query(
     "INSERT INTO products(id,name,price,rating,is_active) VALUES (?,?,?,?)",
     [
+        newProduct.id,
         newProduct.name,
         newProduct.price,
         newProduct.rating,
