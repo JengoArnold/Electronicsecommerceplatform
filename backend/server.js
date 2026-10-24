@@ -116,7 +116,7 @@ app.get("/",(req,res) =>{
 });
 
 app.get("/products", (req, res) => {
-    db.query("SELECT * FROM products", (err, results) => {
+    db.query("SELECT * FROM products WHERE is_active = TRUE", (err, results) => {
         if (err) {
             console.log("DATABASE ERROR:", err);
             return res.status(500).json({
@@ -153,12 +153,12 @@ return res.status(400).json({
 //now here is where we Insert the product into MYSQL
 
 db.query(
-    "INSERT INTO products(id,name,price,rating) VALUES (?,?,?,?)",
+    "INSERT INTO products(id,name,price,rating,is_active) VALUES (?,?,?,?)",
     [
-        newProduct.id,
         newProduct.name,
         newProduct.price,
-        newProduct.rating
+        newProduct.rating,
+        true
     ],
     //What does (err) => {} mean?
 //This is a callback function.
@@ -251,45 +251,18 @@ db.query(
 
 app.delete("/products/:id", authenticateToken,authorizeAdmin,(req,res) => {
 const productId = Number(req.params.id);
-
+// Backend code
 db.query(
-    " SELECT * FROM products WHERE id = ?",
+    "UPDATE products SET is_active = FALSE WHERE id = ?",
     [productId],
-    (err,result) => {
-if(err) {
-    console.log("DATABASE ERROR:", err);
-
-    return res.status(500).json({
-message:"Database error"
-    });
-}
-//checks of the product doesnt exit 
- if(result.length === 0){
-return res.status(404).json({
-    message:"product not found"
-});
- }
-//NOW delete from my sql 
- db.query(
-    "DELETE FROM  products WHERE id = ?",
-    [productId],
-
     (err) => {
-        if(err){
-            console.log("DATABASE ERROR:",err);
-
-            return res.status(500).json({
-message:"Failed to delete the product"
-            });
+        if (err) {
+            return res.status(500).json({ message: "Failed to hide product" });
         }
-       res.json({
-message :"product deleted sucessfully"
-        });
+        res.json({ message: "Product successfully removed from store." });
     }
- 
- )
-    }
-)   ;
+);
+
 
 });
 
