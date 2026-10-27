@@ -119,22 +119,24 @@ function App() {
                     element={
                         <>
                             <Hero />
-                            <FeaturedProducts
-                                addToCart={addToCart}
-                                selectProduct={selectProduct}
-                                searchTerm={productSearchTerm}
-                                onSearchChange={setProductSearchTerm}
-                            />
-
-                            {selectedProduct && (
-                                <ProductDetails
-                                    product={selectedProduct}
+                            <div className="page-background">
+                                <FeaturedProducts
                                     addToCart={addToCart}
-                                    closeDetails={closeDetails}
+                                    selectProduct={selectProduct}
+                                    searchTerm={productSearchTerm}
+                                    onSearchChange={setProductSearchTerm}
                                 />
-                            )}
 
-                            <Categories />
+                                {selectedProduct && (
+                                    <ProductDetails
+                                        product={selectedProduct}
+                                        addToCart={addToCart}
+                                        closeDetails={closeDetails}
+                                    />
+                                )}
+
+                                <Categories />
+                            </div>
                         </>
                     }
                 />
@@ -143,7 +145,7 @@ function App() {
                 <Route
                     path="/shop"
                     element={
-                        <div style={{ padding: "20px" }}>
+                        <div className="page-background shop-page">
                             <h1>Shop All Products</h1>
                             <FeaturedProducts
                                 addToCart={addToCart}
@@ -159,29 +161,46 @@ function App() {
                 <Route
                     path="/cart"
                     element={
-                        <Cart
-                            cartItems={cartItems}
-                            removeFromCart={removeFromCart}
-                            increaseQuantity={increaseQuantity}
-                            decreaseQuantity={decreaseQuantity}
-                        />
+                        <div className="page-background">
+                            <Cart
+                                cartItems={cartItems}
+                                removeFromCart={removeFromCart}
+                                increaseQuantity={increaseQuantity}
+                                decreaseQuantity={decreaseQuantity}
+                            />
+                        </div>
                     }
                 />
 
                 {/* CHECKOUT ROUTE */}
                 <Route
                     path="/checkout"
-                    element={<Checkout cartItems={cartItems} />}
+                    element={
+                        <div className="page-background">
+                            <Checkout cartItems={cartItems} />
+                        </div>
+                    }
                 />
 
                 {/* CONTACT ROUTE */}
                 <Route
                     path="/contact"
-                    element={<Contact />}
+                    element={
+                        <div className="page-background">
+                            <Contact />
+                        </div>
+                    }
                 />
 
                 {/* 404 CATCH-ALL ROUTE */}
-                <Route path="*" element={<h2 style={{ textAlign: "center", padding: "50px" }}>Page not found</h2>} />
+                <Route
+                    path="*"
+                    element={
+                        <div className="page-background">
+                            <h2 style={{ textAlign: "center", padding: "50px" }}>Page not found</h2>
+                        </div>
+                    }
+                />
             </Routes>
                    <ChatBot />
         </div>

@@ -4,6 +4,27 @@
   text-align: center;
 }
 
+.page-background {
+  min-height: calc(100vh - 78px);
+  min-height: calc(100svh - 78px);
+  background: #eaf6ff;
+}
+
+.page-background .login-page {
+  background: transparent;
+}
+
+.shop-page {
+  padding: 20px;
+}
+
+.shop-page > h1 {
+  margin: 0;
+  padding-top: 12px;
+  font-size: clamp(24px, 4vw, 34px);
+  overflow-wrap: anywhere;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -33,6 +54,12 @@
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
+  }
+
+  @media (max-width: 480px) {
+    .shop-page {
+      padding: 14px 0;
+    }
   }
   to {
     transform: rotate(360deg);
