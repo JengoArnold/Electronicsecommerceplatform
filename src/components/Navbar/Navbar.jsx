@@ -7,7 +7,6 @@ function Navbar({ cartCount }) {
 
   // 1. Move these OUTSIDE of closeMenu so the return statement can see them
   const token = sessionStorage.getItem("token");
-  const user = JSON.parse(sessionStorage.getItem("user"));
 
   const handleLogout = () => {
       sessionStorage.removeItem("token");
@@ -21,7 +20,10 @@ function Navbar({ cartCount }) {
 
   return (
     <nav className="navbar" aria-label="Main navigation">
-      <h2 className="logo">ArN</h2>
+      <Link className="logo" to="/" onClick={closeMenu} aria-label="ArN home">
+        <span className="logo-mark">A</span>
+        <span>ArN</span>
+      </Link>
 
       <button
         className={`nav-menu-toggle${menuOpen ? " is-open" : ""}`}
@@ -42,21 +44,25 @@ function Navbar({ cartCount }) {
       >
         <li><Link to="/" onClick={closeMenu}>Home</Link></li>
         <li><Link to="/shop" onClick={closeMenu}>Shop</Link></li>
-        <li><Link to="/cart" onClick={closeMenu}>🛒Cart ({cartCount})</Link></li>
         <li><Link to="/contact" onClick={closeMenu}>Contact</Link></li>
       </ul>
 
-      {/* 2. The Login/Logout section */}
-      {token ? (
+      <div className="nav-actions">
+        {token ? (
           <div className="user-info">
-            
-              <button onClick={handleLogout} className="logout-btn">
-                Log Out
-              </button>
+            <button onClick={handleLogout} className="logout-btn">
+              Log Out
+            </button>
           </div>
-      ) : (
-          <Link to="/login" className="login-link">Login</Link>
-      )}
+        ) : (
+          <Link to="/login" className="login-link" onClick={closeMenu}>Account</Link>
+        )}
+        <Link to="/cart" className="cart-link" onClick={closeMenu}>
+          <span className="cart-icon" aria-hidden="true">🛒</span>
+          <span>Cart</span>
+          <span className="cart-count" aria-label={`${cartCount} items`}>{cartCount}</span>
+        </Link>
+      </div>
     </nav>
   )
 }

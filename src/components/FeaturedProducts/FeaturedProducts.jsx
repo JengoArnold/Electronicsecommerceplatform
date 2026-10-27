@@ -181,10 +181,14 @@ function FeaturedProducts({ addToCart, selectProduct }) {
 
   return (
     <div className="Featured-Products">
-      <h2>FeaturedProducts</h2>
+      <div className="featured-header">
+        <h2>Featured products</h2>
+        <p>Great deals on electronics you love</p>
+      </div>
       <input
         type="text"
         placeholder="Search products"
+        aria-label="Search products"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
