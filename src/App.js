@@ -16,6 +16,7 @@ import ChatBot from "./components/ChatBot/ChatBot";
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
+    const [productSearchTerm, setProductSearchTerm] = useState("");
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(
         Boolean(sessionStorage.getItem("token"))
@@ -105,7 +106,11 @@ function App() {
 
     return (
         <div className="App">
-            <Navbar cartCount={cartCount} />
+            <Navbar
+                cartCount={cartCount}
+                searchTerm={productSearchTerm}
+                onSearchChange={setProductSearchTerm}
+            />
 
             <Routes>
                 {/* HOME ROUTE */}
@@ -117,6 +122,8 @@ function App() {
                             <FeaturedProducts
                                 addToCart={addToCart}
                                 selectProduct={selectProduct}
+                                searchTerm={productSearchTerm}
+                                onSearchChange={setProductSearchTerm}
                             />
 
                             {selectedProduct && (
@@ -141,6 +148,8 @@ function App() {
                             <FeaturedProducts
                                 addToCart={addToCart}
                                 selectProduct={selectProduct}
+                                searchTerm={productSearchTerm}
+                                onSearchChange={setProductSearchTerm}
                             />
                         </div>
                     }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import "./Navbar.css";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar({ cartCount }) {
+function Navbar({ cartCount, searchTerm, onSearchChange }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   // 1. Move these OUTSIDE of closeMenu so the return statement can see them
   const token = sessionStorage.getItem("token");
@@ -18,12 +19,31 @@ function Navbar({ cartCount }) {
     setMenuOpen(false);
   }
 
+  function submitSearch(event) {
+    event.preventDefault();
+    navigate("/shop");
+    closeMenu();
+  }
+
   return (
     <nav className="navbar" aria-label="Main navigation">
       <Link className="logo" to="/" onClick={closeMenu} aria-label="ArN home">
         <span className="logo-mark">A</span>
         <span>ArN</span>
       </Link>
+
+      <form className="nav-search" role="search" onSubmit={submitSearch}>
+        <input
+          type="search"
+          aria-label="Search products"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(event) => onSearchChange(event.target.value)}
+        />
+        <button type="submit" aria-label="Submit product search">
+          Search
+        </button>
+      </form>
 
       <button
         className={`nav-menu-toggle${menuOpen ? " is-open" : ""}`}

@@ -16,11 +16,10 @@ const productImages = {
     4: fridges
 };
 
-function FeaturedProducts({ addToCart, selectProduct }) {
+function FeaturedProducts({ addToCart, selectProduct, searchTerm, onSearchChange }) {
 
   // gets products get from backend 
   const [Product, setProduct] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   
   // Check if the logged-in user is an admin
   const loggedInUser = JSON.parse(sessionStorage.getItem("user"));
@@ -185,14 +184,6 @@ function FeaturedProducts({ addToCart, selectProduct }) {
         <h2>Featured products</h2>
         <p>Great deals on electronics you love</p>
       </div>
-      <input
-        type="text"
-        placeholder="Search products"
-        aria-label="Search products"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-
       {createError && <p>{createError}</p>}
       {loading && <p>⏳ loading.......</p>}
       {error && <p>{error}</p>}
