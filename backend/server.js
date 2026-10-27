@@ -153,7 +153,7 @@ return res.status(400).json({
 //now here is where we Insert the product into MYSQL
 
 db.query(
-    "INSERT INTO products(id,name,price,rating,is_active) VALUES (?,?,?,?)",
+    "INSERT INTO products(id,name,price,rating,is_active) VALUES (?,?,?,?,?)",
     [
         newProduct.id,
         newProduct.name,

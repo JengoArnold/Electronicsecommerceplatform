@@ -4,11 +4,18 @@
 
 The project focuses on product browsing, shopping cart management, page navigation, backend API integration, authentication, and an AI shopping assistant.
 
+##  Project Overview
+
+The goal of Arnold Tech Store is to develop a functional online shopping experience while applying practical frontend and backend development concepts.
+
+###  Features
+
 ## 📌 Project Overview
 
 The goal of Arnold Tech Store is to develop a functional online shopping experience while applying practical frontend and backend development concepts.
 
 ### ✨ Features
+
 
 - **Product Display:** Display technology products with names, images, prices, and ratings.
 - **Shopping Cart:** Add products, update quantities, remove items, and calculate totals.
@@ -232,8 +239,16 @@ These are planned improvements, not claims that the features are already impleme
 **Jengo Arnold**
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1ab307c72595ce4ffdcae29ccbc4dfe834a55c4f
 GitHub: [JengoArnold](https://github.com/JengoArnold)
 
 ## 📄 License
 
+<<<<<<< HEAD
 A license has not yet been specified. Add a `LICENSE` file if you decide to publish the project under an open-source license.
+=======
+A license has not yet been specified. Add a `LICENSE` file if you decide to publish the project under an open-source license.
+>>>>>>> 1ab307c72595ce4ffdcae29ccbc4dfe834a55c4f

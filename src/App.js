@@ -22,25 +22,22 @@ function App() {
     );
     const [showRegister, setShowRegister] = useState(false);
 
-    // Derived state: this automatically stays in sync with cartItems!
-    const cartCount = cartItems.length;
+    const cartCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
     function addToCart(product) {
-        const existingProduct = cartItems.find(
-            item => item.id === product.id
-        );
+        setCartItems(previousItems => {
+            const existingProduct = previousItems.find(item => item.id === product.id);
 
-        if (existingProduct) {
-            console.log("Product already exists");
-        } else {
-            setCartItems([
-                ...cartItems,
-                {
-                    ...product,
-                    quantity: 1
-                }
-            ]);
-        }
+            if (existingProduct) {
+                return previousItems.map(item =>
+                    item.id === product.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item
+                );
+            }
+
+            return [...previousItems, { ...product, quantity: 1 }];
+        });
     }
 
     function selectProduct(product) {
@@ -153,15 +150,12 @@ function App() {
                 <Route
                     path="/cart"
                     element={
-                        <div style={{ padding: "20px" }}>
-                            <h1>Your Cart</h1>
-                            <Cart
-                                cartItems={cartItems}
-                                removeFromCart={removeFromCart}
-                                increaseQuantity={increaseQuantity}
-                                decreaseQuantity={decreaseQuantity}
-                            />
-                        </div>
+                        <Cart
+                            cartItems={cartItems}
+                            removeFromCart={removeFromCart}
+                            increaseQuantity={increaseQuantity}
+                            decreaseQuantity={decreaseQuantity}
+                        />
                     }
                 />
 
