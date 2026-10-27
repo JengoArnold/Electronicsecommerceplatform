@@ -239,16 +239,10 @@ These are planned improvements, not claims that the features are already impleme
 **Jengo Arnold**
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 1ab307c72595ce4ffdcae29ccbc4dfe834a55c4f
 GitHub: [JengoArnold](https://github.com/JengoArnold)
 
 ## 📄 License
 
-<<<<<<< HEAD
 A license has not yet been specified. Add a `LICENSE` file if you decide to publish the project under an open-source license.
-=======
 A license has not yet been specified. Add a `LICENSE` file if you decide to publish the project under an open-source license.
->>>>>>> 1ab307c72595ce4ffdcae29ccbc4dfe834a55c4f
