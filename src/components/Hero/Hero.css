@@ -48,7 +48,7 @@
 .hero-content p {
   max-width: 38rem;
   margin: 0 0 1.5rem;
-  font-size: clamp(2rem, 1.8vw, 1.25rem);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
   line-height: 1.6;
   overflow-wrap: anywhere;
   color: aliceblue;
@@ -131,6 +131,10 @@
     gap: 1.5rem;
   }
 
+  .hero-content p {
+    max-width: 42rem;
+  }
+
   .hero-image img {
     max-height: 420px;
   }
@@ -139,6 +143,10 @@
 @media (max-width: 480px) {
   .hero {
     padding: 1.25rem 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.75rem, 8vw, 2.4rem);
   }
 
   .hero-content button {
@@ -151,5 +159,4 @@
     border-radius: 8px;
   }
 }
-
 
