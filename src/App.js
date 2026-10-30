@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Contact from "./components/Contact";
 import ChatBot from "./components/ChatBot/ChatBot";
+import Footer from "./components/Footer/Footer";
 
 function App() {
     const [cartItems, setCartItems] = useState([]);
@@ -100,6 +101,7 @@ function App() {
                         />
                     )}
                 </main>
+                <Footer />
             </div>
         );
     }
@@ -202,7 +204,8 @@ function App() {
                     }
                 />
             </Routes>
-                   <ChatBot />
+            <Footer />
+            <ChatBot />
         </div>
     );
 }
