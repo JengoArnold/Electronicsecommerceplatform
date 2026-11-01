@@ -78,11 +78,6 @@ function authorizeAdmin(req,res,next){
     next();
 }
 
-
-
-
-
-
 // const Products=[{
 //     id:1,
 //     name :"gaming laptop",
