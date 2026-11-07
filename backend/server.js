@@ -110,6 +110,7 @@ app.get("/",(req,res) =>{
     res.send("Ecommerce backend is running");
 });
 
+
 app.get("/products", (req, res) => {
     db.query("SELECT * FROM products WHERE is_active = TRUE", (err, results) => {
         if (err) {
